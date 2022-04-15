@@ -1,6 +1,7 @@
 package com.nekozouneko.nekohubv2.bukkit;
 
 import com.nekozouneko.nekohubv2.bukkit.cmd.gserver;
+import com.nekozouneko.nekohubv2.bukkit.listener.PluginMessageListener;
 import com.nekozouneko.nplib.chat.ChatCode;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -32,6 +33,7 @@ public final class NekoHubv2 extends JavaPlugin {
 
         getLogger().info("Registering channels...");
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "nhv2:move");
+        Bukkit.getMessenger().registerIncomingPluginChannel(this, "nhv2:openSeverPanel", new PluginMessageListener());
     }
 
     @Override
