@@ -39,7 +39,7 @@ public final class NekoHubv2 extends Plugin {
         getProxy().getPluginManager().unregisterListeners(this);
 
         getLogger().info("Unregistering channels...");
-        getProxy().unregisterChannel("nhv2:register");
+        getProxy().unregisterChannel("nhv2:move");
     }
 
 }
