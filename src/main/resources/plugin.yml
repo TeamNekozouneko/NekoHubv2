@@ -1,0 +1,14 @@
+name: NekoHubv2
+version: '${project.version}'
+main: com.nekozouneko.nekohubv2.bukkit.NekoHubv2
+api-version: 1.18
+authors: [ Taitaitatata ]
+description: NekoHub v2
+website: "https://nekozouneko.ddns.net"
+
+commands:
+  gserver:
+    description: "BungeeにNekoHubv2が導入されてる場合サーバー間移動が可能です。"
+    usage: '/<command> <server> [target]'
+    permission: NekoHubv2.cmd.gserver
+    permission-message: "権限が不足しています。/serverコマンドを代わりに使用してください。"

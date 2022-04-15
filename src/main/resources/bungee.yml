@@ -1,0 +1,5 @@
+author: 'Taitaitatata'
+description: 'NekoHub v2'
+name: 'NekoHubv2'
+main: com.nekozouneko.nekohubv2.bungee.NekoHubv2
+version: '${project.version}'
