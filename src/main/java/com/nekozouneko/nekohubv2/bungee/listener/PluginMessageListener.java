@@ -1,14 +1,14 @@
 package com.nekozouneko.nekohubv2.bungee.listener;
 
 import com.nekozouneko.nekohubv2.bungee.NekoHubv2;
+import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
+import java.io.*;
 
 public class PluginMessageListener implements Listener {
 
@@ -32,6 +32,33 @@ public class PluginMessageListener implements Listener {
                 er.printStackTrace();
             }
         }
+
+        if (e.getTag().equalsIgnoreCase("nhv2:requestserverpanel")) {
+            DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));
+
+            try {
+                ServerSelectorPanelOpenRequestFromBungee(instance.getProxy().getPlayer(in.readUTF()));
+            } catch (Exception er) {
+                er.printStackTrace();
+            }
+        }
+    }
+    
+    private void ServerSelectorPanelOpenRequestFromBungee(ProxiedPlayer player) throws IOException {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(bytes);
+
+        String servers = "";
+        for ( ServerInfo val : instance.getProxy().getServers().values() ) {
+            if (val.canAccess(player)) {
+                servers += val.getName()+":"+val.getMotd()+";";
+            }
+        }
+
+        out.writeUTF(servers);
+        out.writeUTF(player.getName());
+
+        player.getServer().sendData("nhv2:openseverpanel", bytes.toByteArray());
     }
 
 }

@@ -12,3 +12,7 @@ commands:
     usage: '/<command> <server> [target]'
     permission: NekoHubv2.cmd.gserver
     permission-message: "権限が不足しています。/serverコマンドを代わりに使用してください。"
+  serverpanel:
+    aliases: [ "sp", "servers"]
+    description: "サーバーの選択パネルです。"
+    usage: '/<command>'
