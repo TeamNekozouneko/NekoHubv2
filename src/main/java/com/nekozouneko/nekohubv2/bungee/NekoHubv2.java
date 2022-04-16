@@ -28,6 +28,8 @@ public final class NekoHubv2 extends Plugin {
 
         getLogger().info("Registering channels...");
         getProxy().registerChannel("nhv2:move");
+        getProxy().registerChannel("nhv2:requestserverpanel");
+        getProxy().registerChannel("nhv2:openseverpanel");
     }
 
     @Override
