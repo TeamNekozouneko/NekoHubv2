@@ -66,10 +66,13 @@ public class PluginMessageListener implements org.bukkit.plugin.messaging.Plugin
 
             SCMeta.setDisplayName(ChatCode.GREEN+server);
 
+
             List<String> lore = new ArrayList<>();
             lore.add(ChatCode.YELLOW       +"クリックして参加!");
             lore.add(ChatCode.STRIKETHROUGH+"--------------------");
-            lore.add(ChatCode.AQUA         +serversMap.get(server));
+            for (String lores : serversMap.get(server).split("\n")) {
+                lore.add(ChatCode.AQUA + lores);
+            }
 
             SCMeta.setLore(lore);
 
