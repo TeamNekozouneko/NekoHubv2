@@ -1,10 +1,15 @@
 package com.nekozouneko.nekohubv2.bukkit;
 
-import com.nekozouneko.nekohubv2.bukkit.cmd.gserver;
+import com.nekozouneko.nekohubv2.bukkit.cmd.GServer;
 import com.nekozouneko.nekohubv2.bukkit.cmd.ServerPanel;
+import com.nekozouneko.nekohubv2.bukkit.cmd.Stick;
+import com.nekozouneko.nekohubv2.bukkit.cmd.StickMenu;
 import com.nekozouneko.nekohubv2.bukkit.listener.InventoryAction;
+import com.nekozouneko.nekohubv2.bukkit.listener.PlayerInteract;
 import com.nekozouneko.nekohubv2.bukkit.listener.PluginMessageListener;
+
 import com.nekozouneko.nplib.chat.ChatCode;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,8 +32,10 @@ public final class NekoHubv2 extends JavaPlugin {
 
         // Register commands / channels
         getLogger().info("Registering commands...");
-        getCommand("gserver").setExecutor(new gserver());
+        getCommand("gserver").setExecutor(new GServer());
         getCommand("serverpanel").setExecutor(new ServerPanel());
+        getCommand("stickmenu").setExecutor(new StickMenu());
+        getCommand("stick").setExecutor(new Stick());
 
         getLogger().info("Registering channels...");
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "nhv2:move");
@@ -37,7 +44,7 @@ public final class NekoHubv2 extends JavaPlugin {
 
         getLogger().info("Registering listeners...");
         getServer().getPluginManager().registerEvents(new InventoryAction(), this);
-
+        getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
     }
 
     @Override
@@ -46,6 +53,7 @@ public final class NekoHubv2 extends JavaPlugin {
 
         // Unregister channels
         getLogger().info("Unregistering channels...");
+        Bukkit.getMessenger().unregisterIncomingPluginChannel(this);
         Bukkit.getMessenger().unregisterOutgoingPluginChannel(this);
     }
 }

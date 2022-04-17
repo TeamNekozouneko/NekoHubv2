@@ -2,6 +2,7 @@ package com.nekozouneko.nekohubv2.bungee;
 
 import com.nekozouneko.nekohubv2.bungee.cmd.*;
 import com.nekozouneko.nekohubv2.bungee.listener.PluginMessageListener;
+import com.nekozouneko.nplib.chat.ChatCode;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public final class NekoHubv2 extends Plugin {
@@ -19,9 +20,11 @@ public final class NekoHubv2 extends Plugin {
 
     @Override
     public void onEnable() {
+        getLogger().info(ChatCode.GREEN+"Enabling §fNekoHub v2");
+
         getLogger().info("Registering commands...");
 
-        getProxy().getPluginManager().registerCommand(this, new hub("hub", "lobby"));
+        getProxy().getPluginManager().registerCommand(this, new Hub("hub", "lobby"));
 
         getLogger().info("Registering listeners...");
         getProxy().getPluginManager().registerListener(this, new PluginMessageListener());
@@ -34,6 +37,8 @@ public final class NekoHubv2 extends Plugin {
 
     @Override
     public void onDisable() {
+        getLogger().info(ChatCode.RED+"Disabling §fNekoHub v2");
+
         getLogger().info("Unregistering commands...");
         getProxy().getPluginManager().unregisterCommands(this);
 
