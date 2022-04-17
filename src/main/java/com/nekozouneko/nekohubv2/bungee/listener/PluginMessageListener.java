@@ -51,7 +51,7 @@ public class PluginMessageListener implements Listener {
         String servers = "";
         for ( ServerInfo val : instance.getProxy().getServers().values() ) {
             if (val.canAccess(player)) {
-                servers += val.getName()+":"+val.getMotd()+";";
+                servers += val.getName()+":"+val.getMotd().replaceAll("\\n", "\n")+";";
             }
         }
 
