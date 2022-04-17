@@ -16,3 +16,10 @@ commands:
     aliases: [ "sp", "servers"]
     description: "サーバーの選択パネルです。"
     usage: '/<command>'
+  stickmenu:
+    aliases: ["sm"]
+    description: "棒メニューを表示します。"
+    usage: '/<command>'
+  stick:
+    description: "棒を取得します。"
+    usage: '/<command>'
