@@ -43,7 +43,12 @@ public class PluginMessageListener implements Listener {
             }
         }
     }
-    
+
+    /**
+     * 鯖選択画面に必要なデータを子鯖に送信
+     * @param player 開かせるプレイヤー
+     * @throws IOException バイトに書き込むときにバグが発生した用
+     */
     private void ServerSelectorPanelOpenRequestFromBungee(ProxiedPlayer player) throws IOException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(bytes);

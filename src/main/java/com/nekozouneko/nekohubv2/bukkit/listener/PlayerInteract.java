@@ -2,7 +2,7 @@ package com.nekozouneko.nekohubv2.bukkit.listener;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 import com.nekozouneko.nekohubv2.bukkit.cmd.StickMenu;
-import org.bukkit.Bukkit;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.Action;
@@ -30,6 +30,11 @@ public class PlayerInteract implements Listener {
         } catch (Exception ignored) {}
     }
 
+    /**
+     * 棒メニューを開きます。
+     * @param player 棒メニューを開くプレイヤー
+     * @param event @EventHandlerで出たPlayerInteractEvent
+     */
     private void openStickGUI(Player player, PlayerInteractEvent event) {
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();

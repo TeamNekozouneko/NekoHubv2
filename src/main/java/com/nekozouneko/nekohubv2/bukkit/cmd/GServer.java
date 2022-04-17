@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.nekozouneko.nplib.chat.ChatCode;
@@ -41,7 +42,7 @@ public class GServer implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 
 

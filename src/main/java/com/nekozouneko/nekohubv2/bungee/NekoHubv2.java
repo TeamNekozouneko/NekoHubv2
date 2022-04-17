@@ -2,14 +2,24 @@ package com.nekozouneko.nekohubv2.bungee;
 
 import com.nekozouneko.nekohubv2.bungee.cmd.*;
 import com.nekozouneko.nekohubv2.bungee.listener.PluginMessageListener;
+
 import com.nekozouneko.nplib.chat.ChatCode;
+
 import net.md_5.bungee.api.plugin.Plugin;
 
 public final class NekoHubv2 extends Plugin {
 
+    /**
+     * プラグインインスタンス
+     * @see com.nekozouneko.nekohubv2.bungee.NekoHubv2
+     */
     public static com.nekozouneko.nekohubv2.bungee.NekoHubv2 instance;
 
-    public static com.nekozouneko.nekohubv2.bungee.NekoHubv2 getInstance() {
+    /**
+     * プラグインのインスタンスを取得します。
+     * @return プラグインのインスタンス
+     */
+    public static NekoHubv2 getInstance() {
         return instance;
     }
 

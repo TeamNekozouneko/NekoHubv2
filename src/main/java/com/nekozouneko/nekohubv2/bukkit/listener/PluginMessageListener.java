@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PluginMessageListener implements org.bukkit.plugin.messaging.PluginMessageListener {
+
     @Override
     public void onPluginMessageReceived(String channel, Player plyer, byte[] message) {
         if (!channel.startsWith("nhv2:")) return;

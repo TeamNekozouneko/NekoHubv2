@@ -10,13 +10,10 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
 public class Hub extends Command {
-
     private final NekoHubv2 instance = NekoHubv2.getInstance();
-
     public Hub(String cmdName, String... aliases) {
         super(cmdName, null, aliases);
     }
-
     @Override
     public void execute(CommandSender sender, String[] args) {
 
@@ -34,6 +31,5 @@ public class Hub extends Command {
         }
 
         player.connect(ConnectableServ);
-
     }
 }

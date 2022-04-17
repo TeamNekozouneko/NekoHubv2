@@ -32,6 +32,10 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         return new ArrayList<>();
     }
 
+    /**
+     * 棒メニューを初期化して開きます。
+     * @param player 開くプレイヤー
+     */
     public static void initStickMenu(Player player) {
         Inventory StickMenu = Bukkit.createInventory(null, 3*9, "NekoHub: メニュー");
 

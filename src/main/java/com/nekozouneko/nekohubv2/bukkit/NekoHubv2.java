@@ -13,10 +13,23 @@ import com.nekozouneko.nplib.chat.ChatCode;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * NekoHub v2 for bukkit / Spigot
+ * @author Taitaitatata
+ * @version 1.0
+ */
 public final class NekoHubv2 extends JavaPlugin {
 
+    /**
+     * プラグインのインスタンスです。
+     * @see com.nekozouneko.nekohubv2.bukkit.NekoHubv2
+     */
     public static NekoHubv2 instance;
 
+    /**
+     * プラグインのインスタンスを取得します。
+     * @return プラグインのインスタンス
+     */
     public static NekoHubv2 getInstance() {
         return instance;
     }
