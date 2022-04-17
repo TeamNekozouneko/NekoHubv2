@@ -9,13 +9,11 @@ import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-public class hub extends Command {
+public class Hub extends Command {
 
     private final NekoHubv2 instance = NekoHubv2.getInstance();
 
-    public hub(String cmdName, String... aliases) {
+    public Hub(String cmdName, String... aliases) {
         super(cmdName, null, aliases);
     }
 
