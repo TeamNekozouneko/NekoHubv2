@@ -1,7 +1,7 @@
 package com.nekozouneko.nekohubv2.bungee;
 
 import com.nekozouneko.nekohubv2.bungee.cmd.*;
-import com.nekozouneko.nekohubv2.bungee.listener.PluginMessageListener;
+import com.nekozouneko.nekohubv2.bungee.listener.*;
 
 import com.nekozouneko.nplib.chat.ChatCode;
 
@@ -38,6 +38,10 @@ public final class NekoHubv2 extends Plugin {
 
         getLogger().info("Registering listeners...");
         getProxy().getPluginManager().registerListener(this, new PluginMessageListener());
+        getProxy().getPluginManager().registerListener(this, new PostLogin());
+        getProxy().getPluginManager().registerListener(this, new ServerSwitch());
+        getProxy().getPluginManager().registerListener(this, new Chat());
+        getProxy().getPluginManager().registerListener(this, new PlayerDisconnect());
 
         getLogger().info("Registering channels...");
         getProxy().registerChannel("nhv2:move");
