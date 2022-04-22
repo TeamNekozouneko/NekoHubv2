@@ -4,9 +4,7 @@ import com.nekozouneko.nekohubv2.bukkit.cmd.GServer;
 import com.nekozouneko.nekohubv2.bukkit.cmd.ServerPanel;
 import com.nekozouneko.nekohubv2.bukkit.cmd.Stick;
 import com.nekozouneko.nekohubv2.bukkit.cmd.StickMenu;
-import com.nekozouneko.nekohubv2.bukkit.listener.InventoryAction;
-import com.nekozouneko.nekohubv2.bukkit.listener.PlayerInteract;
-import com.nekozouneko.nekohubv2.bukkit.listener.PluginMessageListener;
+import com.nekozouneko.nekohubv2.bukkit.listener.*;
 
 import com.nekozouneko.nplib.chat.ChatCode;
 
@@ -23,6 +21,7 @@ public final class NekoHubv2 extends JavaPlugin {
     /**
      * プラグインのインスタンスです。
      * @see com.nekozouneko.nekohubv2.bukkit.NekoHubv2
+     * @see org.bukkit.plugin.java.JavaPlugin
      */
     public static NekoHubv2 instance;
 
@@ -39,6 +38,9 @@ public final class NekoHubv2 extends JavaPlugin {
         instance = this;
     }
 
+    /**
+     * @see org.bukkit.plugin.java.JavaPlugin#onEnable()
+     */
     @Override
     public void onEnable() {
         getLogger().info(ChatCode.GREEN+"Enabling §fNekoHub v2");
@@ -58,8 +60,13 @@ public final class NekoHubv2 extends JavaPlugin {
         getLogger().info("Registering listeners...");
         getServer().getPluginManager().registerEvents(new InventoryAction(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
     }
 
+    /**
+     * @see org.bukkit.plugin.java.JavaPlugin#onDisable()
+     */
     @Override
     public void onDisable() {
         getLogger().info(ChatCode.RED+"Disabling §fNekoHub v2");
