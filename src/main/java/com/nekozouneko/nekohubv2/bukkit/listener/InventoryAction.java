@@ -31,7 +31,7 @@ public class InventoryAction implements Listener {
         if (e.getView().getTitle().startsWith("NekoHub: ")) {
             e.setCancelled(true);
             if (e.getView().getTitle().equalsIgnoreCase("NekoHub: サーバーを選択")) {
-                if (item.getType().equals(Material.CHEST)) {
+                if (item != null && item.getType().equals(Material.CHEST)) {
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     DataOutputStream out = new DataOutputStream(bytes);
 
@@ -45,7 +45,7 @@ public class InventoryAction implements Listener {
                     }
                 }
             } else if (e.getView().getTitle().equalsIgnoreCase("NekoHub: メニュー")) {
-                if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.AQUA+player)) {
+                if (item != null && item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.AQUA+player)) {
                     ItemStack playerInfo = new ItemStack(Material.PLAYER_HEAD);
                     SkullMeta piSkull = (SkullMeta) playerInfo.getItemMeta();
 
