@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.nekozouneko.nplib.chat.ChatCode;
 
-public class GServer implements CommandExecutor, TabCompleter {
+public class Move implements CommandExecutor, TabCompleter {
 
     private NekoHubv2 instance = NekoHubv2.getInstance();
 
