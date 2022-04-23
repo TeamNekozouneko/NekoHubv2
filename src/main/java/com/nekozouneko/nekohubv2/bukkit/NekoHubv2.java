@@ -1,6 +1,6 @@
 package com.nekozouneko.nekohubv2.bukkit;
 
-import com.nekozouneko.nekohubv2.bukkit.cmd.GServer;
+import com.nekozouneko.nekohubv2.bukkit.cmd.Move;
 import com.nekozouneko.nekohubv2.bukkit.cmd.ServerPanel;
 import com.nekozouneko.nekohubv2.bukkit.cmd.Stick;
 import com.nekozouneko.nekohubv2.bukkit.cmd.StickMenu;
@@ -47,7 +47,7 @@ public final class NekoHubv2 extends JavaPlugin {
 
         // Register commands / channels
         getLogger().info("Registering commands...");
-        getCommand("gserver").setExecutor(new GServer());
+        getCommand("move").setExecutor(new Move());
         getCommand("serverpanel").setExecutor(new ServerPanel());
         getCommand("stickmenu").setExecutor(new StickMenu());
         getCommand("stick").setExecutor(new Stick());
