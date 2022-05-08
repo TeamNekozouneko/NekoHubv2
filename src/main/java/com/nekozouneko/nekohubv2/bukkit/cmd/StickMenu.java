@@ -46,14 +46,15 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         piSkull.setDisplayName(ChatCode.AQUA+player.getName());
 
         List<String> piLore = new ArrayList<>();
+        try {
+            double PlayedHours = (NPLib.tickToSecond(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) / 60) / 60;
 
-        double PlayedHours = (NPLib.tickToSecond(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) / 60) / 60;
-
-        piLore.add(ChatCode.GRAY+String.format("%.1f", PlayedHours)+"時間プレイ済み");
+            piLore.add(ChatCode.GRAY + String.format("%.1f", PlayedHours) + "時間プレイ済み");
+        } catch (Exception ignored) {}
         piLore.add(ChatCode.GRAY+player.getPing()+"ms / "+ChatCode.DARK_GRAY+player.getAddress().getAddress());
 
         try {
-            piSkull.setOwnerProfile(player.getPlayerProfile());
+            piSkull.setOwningPlayer(player);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
