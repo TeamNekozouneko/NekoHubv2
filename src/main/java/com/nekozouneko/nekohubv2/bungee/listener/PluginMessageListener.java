@@ -7,8 +7,11 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.util.Map;
 
 public class PluginMessageListener implements Listener {
 
@@ -64,6 +67,14 @@ public class PluginMessageListener implements Listener {
         out.writeUTF(player.getName());
 
         player.getServer().sendData("nhv2:openseverpanel", bytes.toByteArray());
+    }
+
+    private void setSyncEnder(PluginMessageEvent e) {
+        if (!instance.getDataFolder().exists()) {
+            instance.getDataFolder().mkdir();
+        }
+
+        FileConfiguration config = YamlConfiguration.loadConfiguration(new File(instance.getDataFolder(), "aaa.yml"));
     }
 
 }
