@@ -1,7 +1,7 @@
 name: NekoHubv2
 version: '${project.version}'
 main: com.nekozouneko.nekohubv2.bukkit.NekoHubv2
-api-version: 1.18
+api-version: 1.16
 authors: [ Taitaitatata ]
 description: NekoHub v2
 website: "https://nekozouneko.ddns.net"
@@ -22,4 +22,12 @@ commands:
     usage: '/<command>'
   stick:
     description: "棒を取得します。"
+    usage: '/<command>'
+  enderchest:
+    aliases: ['ender', 'ec']
+    description: "エンダーチェストを開けるだけ"
+    usage: '/<command>'
+  rule:
+    aliases: ['r', 'readme']
+    description: "ルールを見る"
     usage: '/<command>'
