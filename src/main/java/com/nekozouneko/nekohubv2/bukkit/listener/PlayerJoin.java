@@ -1,5 +1,6 @@
 package com.nekozouneko.nekohubv2.bukkit.listener;
 
+import com.nekozouneko.nekohubv2.bukkit.cmd.Rule;
 import com.nekozouneko.nplib.chat.ChatCode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,8 @@ public class PlayerJoin implements Listener {
         } else {
             e.setJoinMessage(ChatCode.YELLOW + " " + e.getPlayer().getName()+"がゲームに参加しました!");
         }
+
+        e.getPlayer().sendMessage(Rule.getRule());
     }
 
 }
