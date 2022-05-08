@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.nekozouneko.nplib.chat.ChatCode;
@@ -21,7 +22,12 @@ public class Move implements CommandExecutor, TabCompleter {
         if (args.length == 2) {
             player = instance.getServer().getPlayer(args[1]);
         } else {
-            player = (Player) sender;
+            try {
+                player = (Player) sender;
+            } catch (ClassCastException e) {
+                sender.sendMessage(ChatCode.RED+"プレイヤーとしてのみ実行できます。");
+                return true;
+            }
         }
 
         if (player == null) sender.sendMessage(ChatCode.RED+"そのようなプレイヤーは存在していません。");
@@ -42,6 +48,21 @@ public class Move implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 1) {
+            return NekoHubv2.servers;
+        } else if (args.length == 2) {
+            List<String> tab = new ArrayList<>();
+
+            for (Player ply : instance.getServer().getOnlinePlayers()) {
+                String now = ply.getName();
+                if (now.toUpperCase().startsWith(args[1].toUpperCase())) {
+                    tab.add(ply.getName());
+                }
+            }
+
+            return tab;
+        }
+
         return new ArrayList<>();
     }
 
