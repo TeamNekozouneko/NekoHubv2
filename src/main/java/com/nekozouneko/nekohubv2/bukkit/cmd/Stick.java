@@ -27,7 +27,7 @@ public class Stick implements CommandExecutor, TabCompleter {
         ItemStack stick = new ItemStack(Material.STICK);
 
         player.getInventory().addItem(stick);
-        player.playSound(player, Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
+        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
         return true;
     }
 

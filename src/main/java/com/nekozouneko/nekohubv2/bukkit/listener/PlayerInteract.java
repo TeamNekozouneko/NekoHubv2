@@ -3,6 +3,7 @@ package com.nekozouneko.nekohubv2.bukkit.listener;
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 import com.nekozouneko.nekohubv2.bukkit.cmd.StickMenu;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.block.Action;
@@ -36,6 +37,7 @@ public class PlayerInteract implements Listener {
      * @param event @EventHandlerで出たPlayerInteractEvent
      */
     private void openStickGUI(Player player, PlayerInteractEvent event) {
+        player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 1L, 0L);
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(bytes);
