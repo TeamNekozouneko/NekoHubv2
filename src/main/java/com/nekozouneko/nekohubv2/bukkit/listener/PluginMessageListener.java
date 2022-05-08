@@ -1,5 +1,6 @@
 package com.nekozouneko.nekohubv2.bukkit.listener;
 
+import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 import com.nekozouneko.nplib.chat.ChatCode;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,10 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.io.BukkitObjectInputStream;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PluginMessageListener implements org.bukkit.plugin.messaging.PluginMessageListener {
 
@@ -43,6 +41,13 @@ public class PluginMessageListener implements org.bukkit.plugin.messaging.Plugin
             } catch (IOException e) {
                 e.printStackTrace();
 
+            }
+        } else if (channel.equalsIgnoreCase("nhv2:sync")) {
+            try {
+                NekoHubv2.linked = true;
+                NekoHubv2.servers = Arrays.asList(in.readUTF().split(";"));
+            } catch (IOException er) {
+                er.printStackTrace();
             }
         }
     }
