@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * NekoHub v2 for bukkit / Spigot
  * @author Taitaitatata
+ * @see org.bukkit.plugin.java.JavaPlugin
  * @version 1.0
  */
 public final class NekoHubv2 extends JavaPlugin {
@@ -25,9 +26,11 @@ public final class NekoHubv2 extends JavaPlugin {
      */
     public static NekoHubv2 instance;
 
-    public static boolean linked = false;
+    public String PREFIX = ChatCode.toColorCode("&", "&7[&bNHv2&7] &r");
 
-    public static List<String> servers = new ArrayList<>();
+    public boolean linked = false;
+
+    public List<String> servers = new ArrayList<>();
 
     /**
      * プラグインのインスタンスを取得します。
@@ -57,6 +60,7 @@ public final class NekoHubv2 extends JavaPlugin {
         getCommand("stick").setExecutor(new Stick());
         getCommand("enderchest").setExecutor(new EnderChest());
         getCommand("rule").setExecutor(new Rule());
+        getCommand("nekohubv2").setExecutor(new Root());
 
         getLogger().info("Registering listeners...");
         getServer().getPluginManager().registerEvents(new InventoryAction(), this);
@@ -73,6 +77,23 @@ public final class NekoHubv2 extends JavaPlugin {
         getLogger().info("Loading configurations...");
         saveDefaultConfig();
 
+        getConfig().addDefault("rule", "&a&lマイクラ鯖共通ルール\n" +
+                "&f・道のど真ん中に建築はしないでください。\n" +
+                "&f・荒らし・チート・ハッキングなどは禁止します。\n" +
+                "&f・ハッククライアントは使用しないでください。\n" +
+                "&f・人の家(敷地)に勝手に入らないでください\n" +
+                "&f・人を &n'わざと'&f 倒し、アイテムを略奪をすることを禁止します。\n" +
+                "&f・&c&lOPの指示に従ってください。\n" +
+                "&f・&cVPN/プロキシを&n経由&cしてアクセスしないでください");
+
+        getConfig().addDefault("menu.buttons.server_selector", true);
+        getConfig().addDefault("menu.buttons.last_spawn", true);
+        getConfig().addDefault("menu.buttons.ender_chest", true);
+        getConfig().addDefault("menu.buttons.player_head", true);
+
+        getConfig().addDefault("menu.buttons.trash_box", true);
+
+        getConfig().addDefault("donate.fly", false);
     }
 
     /**

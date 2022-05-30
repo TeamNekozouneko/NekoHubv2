@@ -49,7 +49,7 @@ public class Move implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 1) {
-            return NekoHubv2.servers;
+            return instance.servers;
         } else if (args.length == 2) {
             List<String> tab = new ArrayList<>();
 
