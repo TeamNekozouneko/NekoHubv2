@@ -13,6 +13,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * NekoHub v2 for BungeeCord
+ * @author Taitaitatata
+ * @see net.md_5.bungee.api.plugin.Plugin
+ * @version 1.0
+ */
 public final class NekoHubv2 extends Plugin {
 
     /**
@@ -20,6 +26,8 @@ public final class NekoHubv2 extends Plugin {
      * @see com.nekozouneko.nekohubv2.bungee.NekoHubv2
      */
     public static com.nekozouneko.nekohubv2.bungee.NekoHubv2 instance;
+
+    public String PREFIX = ChatCode.toColorCode("&", "&7[&bNHv2&7] &r");
 
     /**
      * プラグインのインスタンスを取得します。
@@ -36,11 +44,13 @@ public final class NekoHubv2 extends Plugin {
 
     @Override
     public void onEnable() {
+
         getLogger().info(ChatCode.GREEN+"Enabling §fNekoHub v2");
 
         getLogger().info("Registering commands...");
 
         getProxy().getPluginManager().registerCommand(this, new Hub("hub", "lobby"));
+        getProxy().getPluginManager().registerCommand(this, new Root("bnekohubv2", "bnhv2"));
 
         getLogger().info("Registering listeners...");
         getProxy().getPluginManager().registerListener(this, new PluginMessageListener());
