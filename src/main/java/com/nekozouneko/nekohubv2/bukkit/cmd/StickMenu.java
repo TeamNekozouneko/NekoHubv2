@@ -1,11 +1,13 @@
 package com.nekozouneko.nekohubv2.bukkit.cmd;
 
+import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 import com.nekozouneko.nplib.NPLib;
 import com.nekozouneko.nplib.chat.ChatCode;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
 import org.bukkit.command.*;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -17,6 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StickMenu implements CommandExecutor, TabCompleter {
+
+    private static NekoHubv2 instance = NekoHubv2.getInstance();
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         try {
@@ -37,13 +42,15 @@ public class StickMenu implements CommandExecutor, TabCompleter {
      * @param player 開くプレイヤー
      */
     public static void initStickMenu(Player player) {
+        String disabledPrefix = ChatCode.GRAY + "[" + ChatCode.RED + "無効化されています" + ChatCode.GRAY + "]";
+        FileConfiguration conf = instance.getConfig();
         Inventory StickMenu = Bukkit.createInventory(null, 3*9, "NekoHub: メニュー");
 
         /* Player info button **/
         ItemStack playerInfo = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta piSkull = (SkullMeta) playerInfo.getItemMeta();
 
-        piSkull.setDisplayName(ChatCode.AQUA+player.getName());
+        piSkull.setDisplayName(ChatCode.GREEN+player.getName());
 
         List<String> piLore = new ArrayList<>();
         try {
@@ -51,7 +58,7 @@ public class StickMenu implements CommandExecutor, TabCompleter {
 
             piLore.add(ChatCode.GRAY + String.format("%.1f", PlayedHours) + "時間プレイ済み");
         } catch (Exception ignored) {}
-        piLore.add(ChatCode.GRAY+player.getPing()+"ms / "+ChatCode.DARK_GRAY+player.getAddress().getAddress());
+        piLore.add(ChatCode.GRAY+player.getPing()+"ms");
 
         try {
             piSkull.setOwningPlayer(player);
@@ -66,7 +73,11 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         ItemStack serverSel = new ItemStack(Material.ENDER_EYE);
         ItemMeta ssMeta = serverSel.getItemMeta();
 
-        ssMeta.setDisplayName(ChatCode.GREEN+"サーバー選択画面を開く");
+        ssMeta.setDisplayName(
+            conf.getBoolean("menu.buttons.server_selector") ?
+                ChatCode.GREEN+"サーバー選択画面を開く" :
+                ChatCode.GREEN+"サーバー選択画面を開く " + disabledPrefix
+        );
 
         serverSel.setItemMeta(ssMeta);
 
@@ -74,7 +85,12 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         ItemStack LSButton = new ItemStack(Material.RED_BED);
         ItemMeta LSBMeta = LSButton.getItemMeta();
 
-        LSBMeta.setDisplayName(ChatCode.GREEN+"最後に設定したスポーン地点に戻る");
+        LSBMeta.setDisplayName(
+            conf.getBoolean("menu.buttons.last_spawn") ?
+                ChatCode.GREEN+"最後に設定したスポーン地点に戻る" :
+                ChatCode.GREEN+"最後に設定したスポーン地点に戻る" + disabledPrefix
+
+        );
 
         LSButton.setItemMeta(LSBMeta);
 
@@ -82,7 +98,11 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         ItemStack EnderChestButton = new ItemStack(Material.ENDER_CHEST);
         ItemMeta ECMeta = LSButton.getItemMeta();
 
-        ECMeta.setDisplayName(ChatCode.GREEN+"エンダーチェストを開く");
+        ECMeta.setDisplayName(
+                conf.getBoolean("menu.buttons.ender_chest") ?
+                        ChatCode.GREEN + "エンダーチェストを開く" :
+                        ChatCode.GREEN+"エンダーチェストを開く" + disabledPrefix
+        );
 
         EnderChestButton.setItemMeta(ECMeta);
 
@@ -90,7 +110,11 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         ItemStack PlayerHeadButton = new ItemStack(Material.PLAYER_HEAD);
         ItemMeta  PHBMeta = PlayerHeadButton.getItemMeta();
 
-        PHBMeta.setDisplayName(ChatCode.GREEN+"プレイヤーの頭を入手");
+        PHBMeta.setDisplayName(
+                conf.getBoolean("menu.buttons.player_head") ?
+                        ChatCode.GREEN+"プレイヤーの頭を入手" :
+                        ChatCode.GREEN + "プレイヤーの頭を入手" + disabledPrefix
+        );
         PHBMeta.setLore(Arrays.asList(ChatCode.RESET+ChatCode.GRAY+"その代わり1レベル"+ChatCode.RED+"消費"+ChatCode.GRAY+"します。"));
 
         PlayerHeadButton.setItemMeta(PHBMeta);
@@ -99,7 +123,11 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         ItemStack TrashButton = new ItemStack(Material.LAVA_BUCKET);
         ItemMeta TMeta = TrashButton.getItemMeta();
 
-        TMeta.setDisplayName(ChatCode.GREEN+"ゴミ箱を開く");
+        TMeta.setDisplayName(
+                conf.getBoolean("menu.buttons.trash_box") ?
+                        ChatCode.GREEN + "ゴミ箱を開く" :
+                        ChatCode.GREEN+"ゴミ箱を開く" + disabledPrefix
+        );
         TMeta.setLore(Arrays.asList(ChatCode.RED+"ゴミ箱に入れて閉じてしまった場合戻すことは"+ChatCode.DARK_RED+ChatCode.BOLD+"不可能"+ChatCode.RED+"です。"));
 
         TrashButton.setItemMeta(TMeta);
