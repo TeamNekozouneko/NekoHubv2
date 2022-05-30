@@ -7,3 +7,19 @@ rule: |
   &f・人を &n'わざと'&f 倒し、アイテムを略奪をすることを禁止します。
   &f・&c&lOPの指示に従ってください。
   &f・&cVPN/プロキシを&n経由&cしてアクセスしないでください
+
+
+menu:
+  buttons:
+    server_selector: true
+    last_spawn: true
+    ender_chest: true
+    player_head: true
+
+    trash_box: true
+
+# ========================= #
+#       寄付者向けの機能       #
+# ========================= #
+donate:
+  fly: false

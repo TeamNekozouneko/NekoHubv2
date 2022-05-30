@@ -45,11 +45,11 @@ public class InventoryAction implements Listener {
                     }
                 }
             } else if (e.getView().getTitle().equalsIgnoreCase("NekoHub: メニュー")) {
-                if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.AQUA+player)) {
+                if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+player.getName())) {
                     ItemStack playerInfo = new ItemStack(Material.PLAYER_HEAD);
                     SkullMeta piSkull = (SkullMeta) playerInfo.getItemMeta();
 
-                    piSkull.setDisplayName(ChatCode.AQUA+player.getName());
+                    piSkull.setDisplayName(ChatCode.GREEN+player.getName());
 
                     List<String> piLore = new ArrayList<>();
                     try {
@@ -69,6 +69,9 @@ public class InventoryAction implements Listener {
                     playerInfo.setItemMeta(piSkull);
 
                     e.getInventory().setItem(0, playerInfo);
+                } else if (item.getItemMeta().getDisplayName().endsWith(ChatCode.GRAY + "[" + ChatCode.RED + "無効化されています" + ChatCode.GRAY + "]")) {
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1f, 0f);
+                    player.sendMessage(ChatCode.RED + "この機能は無効化されています。");
                 } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+"サーバー選択画面を開く")) {
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     DataOutputStream out = new DataOutputStream(bytes);
