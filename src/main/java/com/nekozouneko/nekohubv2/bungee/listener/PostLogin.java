@@ -17,22 +17,19 @@ public class PostLogin implements Listener {
 
     @EventHandler
     public void onPlayerConnected(PostLoginEvent e) {
-        BaseComponent connected;
+        String connected;
         if (e.getPlayer().getDisplayName().equals(e.getPlayer().getName())) {
-            connected = new TextComponent(ChatCode.GRAY + e.getPlayer().getName());
+            connected = ChatCode.GRAY + e.getPlayer().getName();
         } else {
-            connected = new TextComponent(ChatCode.GRAY + e.getPlayer().getName() + " ("+e.getPlayer().getDisplayName()+")");
+            connected = ChatCode.GRAY + e.getPlayer().getName() + " ("+e.getPlayer().getDisplayName()+") ";
         }
 
-        connected.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ENTITY, new Entity("minecraft:player", e.getPlayer().getUniqueId().toString(), new TextComponent(e.getPlayer().getName()))));
-        connected.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tell "+e.getPlayer().getName() + " "));
+        String joinMessage = "";
 
-        BaseComponent joinMessage = new TextComponent();
+        joinMessage += connected;
+        joinMessage += ChatCode.GRAY+"が参加しました";
 
-        joinMessage.addExtra(connected);
-        joinMessage.addExtra(ChatCode.GRAY+"が参加しました");
-
-        instance.getProxy().broadcast(joinMessage);
+        instance.getProxy().broadcast(new TextComponent(joinMessage));
     }
 
 }

@@ -17,20 +17,17 @@ public class ServerSwitch implements Listener {
 
     @EventHandler
     public void onServerSwitch(ServerSwitchEvent e) {
-        BaseComponent connected;
+        String connected;
         if (e.getPlayer().getDisplayName().equals(e.getPlayer().getName())) {
-            connected = new TextComponent(ChatCode.GRAY + e.getPlayer().getName());
+            connected = ChatCode.GRAY + e.getPlayer().getName();
         } else {
-            connected = new TextComponent(ChatCode.GRAY + e.getPlayer().getName() + " ("+e.getPlayer().getDisplayName()+")");
+            connected = ChatCode.GRAY + e.getPlayer().getName() + " ("+e.getPlayer().getDisplayName()+")";
         }
 
-        connected.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ENTITY, new Entity("minecraft:player", e.getPlayer().getUniqueId().toString(), new TextComponent(e.getPlayer().getName()))));
-        connected.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tell "+e.getPlayer().getName() + " "));
+        String moveMessage = "";
 
-        BaseComponent moveMessage = new TextComponent();
-
-        moveMessage.addExtra(connected);
-        moveMessage.addExtra(ChatCode.GRAY+"が"+e.getPlayer().getServer().getInfo().getName()+"に移動しました");
+        moveMessage += connected;
+        moveMessage += ChatCode.GRAY+"が"+e.getPlayer().getServer().getInfo().getName()+"に移動しました";
 
         instance.getProxy().broadcast(moveMessage);
     }

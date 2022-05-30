@@ -18,23 +18,20 @@ public class Chat implements Listener {
 
     @EventHandler
     public void onChat(ChatEvent e) {
-        if (e.getMessage().startsWith("!")) {
-            String content = ChatCode.toColorCode("&", e.getMessage().substring(1));
+        if (e.getMessage().startsWith("g!")) {
+            String content = ChatCode.toColorCode("&", e.getMessage().substring(2));
             ProxiedPlayer by = (ProxiedPlayer) e.getSender();
 
-            BaseComponent name;
+            String name;
 
             if (!by.getDisplayName().equals(by.getName())) {
-                name = new TextComponent(by.getDisplayName());
+                name = by.getDisplayName();
             } else {
-                name = new TextComponent(by.getName());
+                name = by.getName();
             }
 
-            name.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ENTITY, new Entity("minecraft:player", by.getUniqueId().toString(), new TextComponent(by.getName()))));
-            name.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tell " + by.getName() + " "));
-
-            name.addExtra(ChatCode.GRAY+" ("+by.getServer().getInfo().getName()+")"+ChatCode.GREEN+": ");
-            name.addExtra(ChatCode.RESET + content);
+            name += ChatCode.GRAY+" ("+by.getServer().getInfo().getName()+")"+ChatCode.GREEN+": ";
+            name += ChatCode.RESET + content;
 
             instance.getProxy().broadcast(name);
             e.setCancelled(true);
