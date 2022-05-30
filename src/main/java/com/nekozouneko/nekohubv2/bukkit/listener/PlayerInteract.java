@@ -3,6 +3,7 @@ package com.nekozouneko.nekohubv2.bukkit.listener;
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 import com.nekozouneko.nekohubv2.bukkit.cmd.StickMenu;
 
+import com.nekozouneko.nplib.chat.ChatCode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
@@ -37,19 +38,25 @@ public class PlayerInteract implements Listener {
      * @param event @EventHandlerで出たPlayerInteractEvent
      */
     private void openStickGUI(Player player, PlayerInteractEvent event) {
-        player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 1L, 0L);
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            DataOutputStream out = new DataOutputStream(bytes);
+            player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_AMBIENT, 1L, 2L);
+            if (instance.getConfig().getBoolean("menu.buttons.server_selector")) {
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                DataOutputStream out = new DataOutputStream(bytes);
 
-            try {
-                out.writeUTF(player.getName());
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    out.writeUTF(player.getName());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                player.sendPluginMessage(instance, "nhv2:requestserverpanel", bytes.toByteArray());
+            } else {
+                player.sendMessage(ChatCode.RED + "この機能は無効化されています。");
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1L, 0L);
             }
-
-            player.sendPluginMessage(instance, "nhv2:requestserverpanel", bytes.toByteArray());
         } else if (event.getAction() == Action.RIGHT_CLICK_AIR) {
+            player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 1L, 0L);
             StickMenu.initStickMenu(player);
         }
     }
