@@ -15,6 +15,8 @@ import java.util.*;
 
 public class PluginMessageListener implements org.bukkit.plugin.messaging.PluginMessageListener {
 
+    private NekoHubv2 instance = NekoHubv2.getInstance();
+
     @Override
     public void onPluginMessageReceived(String channel, Player plyer, byte[] message) {
         if (!channel.startsWith("nhv2:")) return;
@@ -44,8 +46,8 @@ public class PluginMessageListener implements org.bukkit.plugin.messaging.Plugin
             }
         } else if (channel.equalsIgnoreCase("nhv2:sync")) {
             try {
-                NekoHubv2.linked = true;
-                NekoHubv2.servers = Arrays.asList(in.readUTF().split(";"));
+                instance.linked = true;
+                instance.servers = Arrays.asList(in.readUTF().split(";"));
             } catch (IOException er) {
                 er.printStackTrace();
             }
