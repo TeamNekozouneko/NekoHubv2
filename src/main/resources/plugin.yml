@@ -2,7 +2,7 @@ name: NekoHubv2
 version: '${project.version}'
 main: com.nekozouneko.nekohubv2.bukkit.NekoHubv2
 api-version: 1.16
-authors: [ Taitaitatata ]
+authors: ["Taitaitatata"]
 description: NekoHub v2
 website: "https://nekozouneko.ddns.net"
 
@@ -10,24 +10,60 @@ commands:
   move:
     description: "BungeeにNekoHubv2が導入されてる場合サーバー間移動が可能です。"
     usage: '/<command> <server> [target]'
-    permission: NekoHubv2.cmd.move
+    permission: NekoHubv2.cmd.Move
     permission-message: "権限が不足しています。/serverコマンドを代わりに使用してください。"
   serverpanel:
     aliases: [ "sp", "servers"]
     description: "サーバーの選択パネルです。"
+    permission: NekoHubv2.cmd.ServerPanel
     usage: '/<command>'
   stickmenu:
     aliases: ["sm"]
     description: "棒メニューを表示します。"
+    permission: NekoHubv2.cmd.StickMenu
     usage: '/<command>'
   stick:
     description: "棒を取得します。"
+    permission: NekoHubv2.cmd.Stick
     usage: '/<command>'
   enderchest:
     aliases: ['ender', 'ec']
     description: "エンダーチェストを開けるだけ"
+    permission: NekoHubv2.cmd.EnderChest
     usage: '/<command>'
   rule:
     aliases: ['r', 'readme']
     description: "ルールを見る"
+    permission: NekoHubv2.cmd.Rule
     usage: '/<command>'
+  nekohubv2:
+    aliases: ['nhv2', 'nh']
+    description: "プラグインコマンド"
+    permission: NekoHubv2.cmd.NekoHubv2
+    usage: '/<command> <reload>'
+
+permissions:
+  NekoHubv2:
+    children:
+      - NekoHubv2.cmd
+
+  # ============================== #
+  # Command perms                  #
+  # ============================== #
+  NekoHubv2.cmd.Move:
+    default: op
+
+  NekoHubv2.cmd.Rule:
+    default: true
+
+  NekoHubv2.cmd.ServerPanel:
+    default: true
+
+  NekoHubv2.cmd.EnderChest:
+    default: true
+
+  NekoHubv2.cmd.Stick:
+    default: true
+
+  NekoHubv2.cmd.StickMenu:
+    default: true
