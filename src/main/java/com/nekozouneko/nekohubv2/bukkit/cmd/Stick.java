@@ -24,10 +24,24 @@ public class Stick implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        ItemStack stick = new ItemStack(Material.STICK);
+        boolean sf = false;
 
-        player.getInventory().addItem(stick);
-        player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
+        for (ItemStack is : player.getInventory().getContents()) {
+            if (is == null) continue;
+            if (is.getType().equals(Material.STICK)) {
+                sf = true;
+                break;
+            }
+        }
+
+        if (!sf) {
+            ItemStack stick = new ItemStack(Material.STICK);
+
+            player.getInventory().addItem(stick);
+            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
+        } else {
+            player.sendMessage(ChatCode.RED + "あなたのインベントリに棒が見つかったため取得はできません。");
+        }
         return true;
     }
 
