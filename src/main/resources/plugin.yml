@@ -10,60 +10,106 @@ commands:
   move:
     description: "BungeeにNekoHubv2が導入されてる場合サーバー間移動が可能です。"
     usage: '/<command> <server> [target]'
-    permission: NekoHubv2.cmd.Move
+    permission: NekoHubv2.cmd.move
     permission-message: "権限が不足しています。/serverコマンドを代わりに使用してください。"
   serverpanel:
     aliases: [ "sp", "servers"]
     description: "サーバーの選択パネルです。"
-    permission: NekoHubv2.cmd.ServerPanel
+    permission: NekoHubv2.cmd.serverpanel
     usage: '/<command>'
   stickmenu:
     aliases: ["sm"]
     description: "棒メニューを表示します。"
-    permission: NekoHubv2.cmd.StickMenu
+    permission: NekoHubv2.cmd.stickmenu
     usage: '/<command>'
   stick:
     description: "棒を取得します。"
-    permission: NekoHubv2.cmd.Stick
+    permission: NekoHubv2.cmd.stick
     usage: '/<command>'
   enderchest:
     aliases: ['ender', 'ec']
     description: "エンダーチェストを開けるだけ"
-    permission: NekoHubv2.cmd.EnderChest
+    permission: NekoHubv2.cmd.enderchest
     usage: '/<command>'
   rule:
     aliases: ['r', 'readme']
     description: "ルールを見る"
-    permission: NekoHubv2.cmd.Rule
+    permission: NekoHubv2.cmd.rule
     usage: '/<command>'
   nekohubv2:
     aliases: ['nhv2', 'nh']
     description: "プラグインコマンド"
-    permission: NekoHubv2.cmd.NekoHubv2
+    permission: NekoHubv2.cmd.nekohubv2
     usage: '/<command> <reload>'
+  as:
+    aliases: ["sudo"]
+    description: "代行実行"
+    permission: NekoHubv2.cmd.as
+    usage: |
+      /<command> <text>
+      /<command> <cmd> [<args>]
 
 permissions:
   NekoHubv2:
     children:
       - NekoHubv2.cmd
 
+  NekoHubv2.cmd:
+    default: op
+
+    children:
+      - NekoHubv2.cmd.move
+      - NekoHubv2.cmd.serverpanel
+      - NekoHubv2.cmd.stickmenu
+      - NekoHubv2.cmd.stick
+      - NekoHubv2.cmd.enderchest
+      - NekoHubv2.cmd.rule
+      - NekoHubv2.cmd.nekohubv2
+      - NekoHubv2.cmd.as
+
+  NekoHubv2.log:
+    default: op
+
+    children:
+      - NekoHubv2.log.showlog
+      - NekoHubv2.log.noshowlog
+      - NekoHubv2.log.donotlog
+
   # ============================== #
   # Command perms                  #
   # ============================== #
-  NekoHubv2.cmd.Move:
+  NekoHubv2.cmd.move:
     default: op
 
-  NekoHubv2.cmd.Rule:
+  NekoHubv2.cmd.serverpanel:
     default: true
 
-  NekoHubv2.cmd.ServerPanel:
+  NekoHubv2.cmd.stickmenu:
     default: true
 
-  NekoHubv2.cmd.EnderChest:
+  NekoHubv2.cmd.stick:
     default: true
 
-  NekoHubv2.cmd.Stick:
+  NekoHubv2.cmd.enderchest:
     default: true
 
-  NekoHubv2.cmd.StickMenu:
+  NekoHubv2.cmd.rule:
     default: true
+
+  NekoHubv2.cmd.nekohubv2:
+    default: op
+
+  NekoHubv2.cmd.as:
+    default: op
+
+  # ============================== #
+  # Logging perms                  #
+  # ============================== #
+  NekoHubv2.log.showlog:
+    default: op
+
+  NekoHubv2.log.noshowlog:
+    default: false
+
+  NekoHubv2.log.donotlog:
+    default: false
