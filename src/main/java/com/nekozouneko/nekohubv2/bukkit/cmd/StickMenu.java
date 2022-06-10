@@ -14,9 +14,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 public class StickMenu implements CommandExecutor, TabCompleter {
 
@@ -115,7 +119,7 @@ public class StickMenu implements CommandExecutor, TabCompleter {
                         ChatCode.GREEN+"プレイヤーの頭を入手" :
                         ChatCode.GREEN + "プレイヤーの頭を入手" + disabledPrefix
         );
-        PHBMeta.setLore(Arrays.asList(ChatCode.RESET+ChatCode.GRAY+"その代わり1レベル"+ChatCode.RED+"消費"+ChatCode.GRAY+"します。"));
+        PHBMeta.setLore(Arrays.asList(ChatCode.RESET+ChatCode.GRAY+"その代わり15レベル"+ChatCode.RED+"消費"+ChatCode.GRAY+"します。"));
 
         PlayerHeadButton.setItemMeta(PHBMeta);
 
@@ -132,6 +136,18 @@ public class StickMenu implements CommandExecutor, TabCompleter {
 
         TrashButton.setItemMeta(TMeta);
 
+        /* First spawn button **/
+        ItemStack FSButton = new ItemStack(Material.ENDER_PEARL);
+        ItemMeta  FSMeta = FSButton.getItemMeta();
+
+        FSMeta.setDisplayName(
+                conf.getBoolean("menu.buttons.first_spawn") ?
+                        ChatCode.GREEN+"初期スポーンに戻る" :
+                        ChatCode.GREEN + "初期スポーンに戻る" + disabledPrefix
+        );
+
+        FSButton.setItemMeta(FSMeta);
+
         // Line 1
         StickMenu.setItem(0, playerInfo);
 
@@ -141,6 +157,7 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         StickMenu.setItem(12, EnderChestButton);
         StickMenu.setItem(13, PlayerHeadButton);
         StickMenu.setItem(16, TrashButton);
+        StickMenu.setItem(14, FSButton);
 
         player.openInventory(StickMenu);
     }

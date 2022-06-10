@@ -51,6 +51,7 @@ public final class NekoHubv2 extends Plugin {
 
         getProxy().getPluginManager().registerCommand(this, new Hub("hub", "lobby"));
         getProxy().getPluginManager().registerCommand(this, new Root("bnekohubv2", "bnhv2"));
+        getProxy().getPluginManager().registerCommand(this, new Nickname());
 
         getLogger().info("Registering listeners...");
         getProxy().getPluginManager().registerListener(this, new PluginMessageListener());

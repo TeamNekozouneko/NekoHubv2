@@ -8,8 +8,11 @@ import com.nekozouneko.nplib.chat.ChatCode;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * NekoHub v2 for bukkit / Spigot
@@ -29,6 +32,8 @@ public final class NekoHubv2 extends JavaPlugin {
     public String PREFIX = ChatCode.toColorCode("&", "&7[&bNHv2&7] &r");
 
     public boolean linked = false;
+
+    public String defaultWorld = "world";
 
     public List<String> servers = new ArrayList<>();
 
@@ -61,12 +66,14 @@ public final class NekoHubv2 extends JavaPlugin {
         getCommand("enderchest").setExecutor(new EnderChest());
         getCommand("rule").setExecutor(new Rule());
         getCommand("nekohubv2").setExecutor(new Root());
+        getCommand("as").setExecutor(new As());
 
         getLogger().info("Registering listeners...");
         getServer().getPluginManager().registerEvents(new InventoryAction(), this);
         getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
+        getServer().getPluginManager().registerEvents(new CommnadLog(), this);
 
         getLogger().info("Registering channels...");
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "nhv2:move");
@@ -90,10 +97,18 @@ public final class NekoHubv2 extends JavaPlugin {
         getConfig().addDefault("menu.buttons.last_spawn", true);
         getConfig().addDefault("menu.buttons.ender_chest", true);
         getConfig().addDefault("menu.buttons.player_head", true);
+        getConfig().addDefault("menu.buttons.first_spawn", true);
 
         getConfig().addDefault("menu.buttons.trash_box", true);
 
         getConfig().addDefault("donate.fly", false);
+
+        try {
+            Properties p = new Properties();
+            p.load(new FileInputStream("server.properties"));
+
+            defaultWorld = p.getProperty("level-name", "world");
+        } catch (IOException ignored) {}
     }
 
     /**

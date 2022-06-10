@@ -19,7 +19,7 @@ public class Root extends Command implements TabExecutor {
     private NekoHubv2 instance = NekoHubv2.getInstance();
 
     public Root(String name, String... aliases) {
-        super(name, "NekoHubv2.cmd.NekoHubv2", aliases);
+        super(name, "NekoHubv2.cmd.nekohubv2", aliases);
     }
 
     @Override
