@@ -1,8 +1,7 @@
 package com.nekozouneko.nekohubv2.bukkit.cmd;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
-
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +23,7 @@ public class ServerPanel implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = instance.getServer().getPlayer(sender.getName());
         if (player == null) {
-            sender.sendMessage(ChatCode.RED+"プレイヤーとしてのみ実行可能です。");
+            sender.sendMessage(ChatColor.RED+"プレイヤーとしてのみ実行可能です。");
             return true;
         }
 
@@ -37,7 +36,7 @@ public class ServerPanel implements CommandExecutor, TabCompleter {
             e.printStackTrace();
         }
 
-        player.sendMessage(ChatCode.GREEN+"サーバー選択画面を開いています...");
+        player.sendMessage(ChatColor.GREEN+"サーバー選択画面を開いています...");
         player.sendPluginMessage(instance, "nhv2:requestserverpanel", bytes.toByteArray());
 
         return true;

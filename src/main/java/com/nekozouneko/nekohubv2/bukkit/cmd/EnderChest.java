@@ -1,6 +1,6 @@
 package com.nekozouneko.nekohubv2.bukkit.cmd;
 
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +20,7 @@ public class EnderChest implements CommandExecutor, TabCompleter {
         try {
             player = (Player) sender;
         } catch (ClassCastException e) {
-            sender.sendMessage(ChatCode.RED+"このコマンドはプレイヤーとしてのみ実行可能です。");
+            sender.sendMessage(ChatColor.RED+"このコマンドはプレイヤーとしてのみ実行可能です。");
             return true;
         }
 

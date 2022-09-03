@@ -1,12 +1,8 @@
 package com.nekozouneko.nekohubv2.bungee.listener;
 
 import com.nekozouneko.nekohubv2.bungee.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Entity;
+
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -19,7 +15,7 @@ public class Chat implements Listener {
     @EventHandler
     public void onChat(ChatEvent e) {
         if (e.getMessage().startsWith("g!")) {
-            String content = ChatCode.toColorCode("&", e.getMessage().substring(2));
+            String content = ChatColor.translateAlternateColorCodes('&', e.getMessage().substring(2));
             ProxiedPlayer by = (ProxiedPlayer) e.getSender();
 
             String name;
@@ -30,8 +26,8 @@ public class Chat implements Listener {
                 name = by.getName();
             }
 
-            name += ChatCode.GRAY+" ("+by.getServer().getInfo().getName()+")"+ChatCode.GREEN+": ";
-            name += ChatCode.RESET + content;
+            name += ChatColor.GRAY+" ("+by.getServer().getInfo().getName()+")"+ChatColor.GREEN+": ";
+            name += ChatColor.RESET + content;
 
             instance.getProxy().broadcast(name);
             e.setCancelled(true);

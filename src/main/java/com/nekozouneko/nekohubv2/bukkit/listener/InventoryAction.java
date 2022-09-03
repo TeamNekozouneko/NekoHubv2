@@ -1,8 +1,7 @@
 package com.nekozouneko.nekohubv2.bukkit.listener;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
-import com.nekozouneko.nplib.NPLib;
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -39,7 +38,7 @@ public class InventoryAction implements Listener {
 
                     try {
                         out.writeUTF(player.getName());
-                        out.writeUTF(item.getItemMeta().getDisplayName().replace(ChatCode.GREEN, ""));
+                        out.writeUTF(item.getItemMeta().getDisplayName().replace(ChatColor.GREEN+"", ""));
 
                         player.sendPluginMessage(instance, "nhv2:move", bytes.toByteArray());
                     } catch (Exception er) {
@@ -47,19 +46,19 @@ public class InventoryAction implements Listener {
                     }
                 }
             } else if (e.getView().getTitle().equalsIgnoreCase("NekoHub: メニュー")) {
-                if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+player.getName())) {
+                if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+player.getName())) {
                     ItemStack playerInfo = new ItemStack(Material.PLAYER_HEAD);
                     SkullMeta piSkull = (SkullMeta) playerInfo.getItemMeta();
 
-                    piSkull.setDisplayName(ChatCode.GREEN+player.getName());
+                    piSkull.setDisplayName(ChatColor.GREEN+player.getName());
 
                     List<String> piLore = new ArrayList<>();
                     try {
-                        double PlayedHours = (NPLib.tickToSecond(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) / 60) / 60;
+                        double PlayedHours = (player.getStatistic(Statistic.PLAY_ONE_MINUTE) * 20.0 ) / 60.0 / 60.0;
 
-                        piLore.add(ChatCode.GRAY + String.format("%.1f", PlayedHours) + "時間プレイ済み");
+                        piLore.add(ChatColor.GRAY + String.format("%.1f", PlayedHours) + "時間プレイ済み");
                     } catch (Exception ignored) {}
-                    piLore.add(ChatCode.GRAY+player.getPing()+"ms");
+                    piLore.add(ChatColor.GRAY+(player.getPing()+"ms"));
 
                     try {
                         piSkull.setOwningPlayer(player);
@@ -71,10 +70,10 @@ public class InventoryAction implements Listener {
                     playerInfo.setItemMeta(piSkull);
 
                     e.getInventory().setItem(0, playerInfo);
-                } else if (item.getItemMeta().getDisplayName().endsWith(ChatCode.GRAY + "[" + ChatCode.RED + "無効化されています" + ChatCode.GRAY + "]")) {
+                } else if (item.getItemMeta().getDisplayName().endsWith(ChatColor.GRAY + "[" + ChatColor.RED + "無効化されています" + ChatColor.GRAY + "]")) {
                     player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1f, 0f);
-                    player.sendMessage(ChatCode.RED + "この機能は無効化されています。");
-                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+"サーバー選択画面を開く")) {
+                    player.sendMessage(ChatColor.RED + "この機能は無効化されています。");
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"サーバー選択画面を開く")) {
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     DataOutputStream out = new DataOutputStream(bytes);
 
@@ -86,22 +85,22 @@ public class InventoryAction implements Listener {
 
                     player.sendPluginMessage(instance, "nhv2:requestserverpanel", bytes.toByteArray());
                     player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_AMBIENT, 1f, 2f);
-                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+"最後に設定したスポーン地点に戻る")) {
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"最後に設定したスポーン地点に戻る")) {
                     if (player.getBedSpawnLocation() != null) {
                         player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 0.25f, 2f);
 
                         player.closeInventory();
                         player.teleport(player.getBedSpawnLocation());
                     } else {
-                        player.sendMessage(ChatCode.RED+"あなたはスポーン地点を設定してないため、テレポートできませんでした。");
+                        player.sendMessage(ChatColor.RED+"あなたはスポーン地点を設定してないため、テレポートできませんでした。");
                     }
-                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+"エンダーチェストを開く")) {
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"エンダーチェストを開く")) {
                     player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1f, 1f);
                     player.openInventory(player.getEnderChest());
-                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+"ゴミ箱を開く")) {
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"ゴミ箱を開く")) {
                     player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1f, 1f);
                     player.openInventory(Bukkit.createInventory(null, 9*6, "ゴミ箱"));
-                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+"プレイヤーの頭を入手")) {
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"プレイヤーの頭を入手")) {
                     if (player.getLevel() >= 15) {
                         AnvilGUI.Builder builder = new AnvilGUI.Builder();
 
@@ -131,9 +130,9 @@ public class InventoryAction implements Listener {
                     } else {
                         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_LOCKED, 1f, 2f);
 
-                        player.sendMessage(ChatCode.RED+"最低でも15レベル以上必要です。");
+                        player.sendMessage(ChatColor.RED+"最低でも15レベル以上必要です。");
                     }
-                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatCode.GREEN+"初期スポーンに戻る")) {
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"初期スポーンに戻る")) {
                     player.teleport(Bukkit.getWorld(instance.defaultWorld).getSpawnLocation());
                     player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1L, 0L);
 

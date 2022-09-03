@@ -2,7 +2,7 @@ package com.nekozouneko.nekohubv2.bukkit.cmd;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.*;
 
@@ -47,8 +47,8 @@ public class Root implements CommandExecutor, TabCompleter {
     }
 
     void Status(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage(instance.PREFIX + "NekoHubv2 " + ChatCode.GRAY + "v"+instance.getDescription().getVersion() + " (S)");
-        sender.sendMessage(instance.PREFIX + (instance.linked ? "プロキシと同期済み / " + instance.servers.size() + "個のサーバーが登録済み" : "プロキシと同期していません " + ChatCode.GRAY + "(鯖選択画面使用不可)"));
+        sender.sendMessage(instance.PREFIX + "NekoHubv2 " + ChatColor.GRAY + "v"+instance.getDescription().getVersion() + " (S)");
+        sender.sendMessage(instance.PREFIX + (instance.linked ? "プロキシと同期済み / " + instance.servers.size() + "個のサーバーが登録済み" : "プロキシと同期していません " + ChatColor.GRAY + "(鯖選択画面使用不可)"));
     }
 
     void Reload(CommandSender sender, Command command, String label, String[] args) {

@@ -1,8 +1,7 @@
 package com.nekozouneko.nekohubv2.bukkit.cmd;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
-import com.nekozouneko.nplib.NPLib;
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
@@ -14,13 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 public class StickMenu implements CommandExecutor, TabCompleter {
 
@@ -46,7 +41,7 @@ public class StickMenu implements CommandExecutor, TabCompleter {
      * @param player 開くプレイヤー
      */
     public static void initStickMenu(Player player) {
-        String disabledPrefix = ChatCode.GRAY + "[" + ChatCode.RED + "無効化されています" + ChatCode.GRAY + "]";
+        String disabledPrefix = ChatColor.GRAY + "[" + ChatColor.RED + "無効化されています" + ChatColor.GRAY + "]";
         FileConfiguration conf = instance.getConfig();
         Inventory StickMenu = Bukkit.createInventory(null, 3*9, "NekoHub: メニュー");
 
@@ -54,15 +49,15 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         ItemStack playerInfo = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta piSkull = (SkullMeta) playerInfo.getItemMeta();
 
-        piSkull.setDisplayName(ChatCode.GREEN+player.getName());
+        piSkull.setDisplayName(ChatColor.GREEN+player.getName());
 
         List<String> piLore = new ArrayList<>();
         try {
-            double PlayedHours = (NPLib.tickToSecond(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) / 60) / 60;
+            double PlayedHours = ((player.getStatistic(Statistic.PLAY_ONE_MINUTE) * 20.0) / 60.0) / 60.0;
 
-            piLore.add(ChatCode.GRAY + String.format("%.1f", PlayedHours) + "時間プレイ済み");
+            piLore.add(ChatColor.GRAY + String.format("%.1f", PlayedHours) + "時間プレイ済み");
         } catch (Exception ignored) {}
-        piLore.add(ChatCode.GRAY+player.getPing()+"ms");
+        piLore.add(ChatColor.GRAY + (player.getPing()+"ms"));
 
         try {
             piSkull.setOwningPlayer(player);
@@ -79,8 +74,8 @@ public class StickMenu implements CommandExecutor, TabCompleter {
 
         ssMeta.setDisplayName(
             conf.getBoolean("menu.buttons.server_selector") ?
-                ChatCode.GREEN+"サーバー選択画面を開く" :
-                ChatCode.GREEN+"サーバー選択画面を開く " + disabledPrefix
+                ChatColor.GREEN+"サーバー選択画面を開く" :
+                ChatColor.GREEN+"サーバー選択画面を開く " + disabledPrefix
         );
 
         serverSel.setItemMeta(ssMeta);
@@ -91,8 +86,8 @@ public class StickMenu implements CommandExecutor, TabCompleter {
 
         LSBMeta.setDisplayName(
             conf.getBoolean("menu.buttons.last_spawn") ?
-                ChatCode.GREEN+"最後に設定したスポーン地点に戻る" :
-                ChatCode.GREEN+"最後に設定したスポーン地点に戻る" + disabledPrefix
+                ChatColor.GREEN+"最後に設定したスポーン地点に戻る" :
+                ChatColor.GREEN+"最後に設定したスポーン地点に戻る" + disabledPrefix
 
         );
 
@@ -104,8 +99,8 @@ public class StickMenu implements CommandExecutor, TabCompleter {
 
         ECMeta.setDisplayName(
                 conf.getBoolean("menu.buttons.ender_chest") ?
-                        ChatCode.GREEN + "エンダーチェストを開く" :
-                        ChatCode.GREEN+"エンダーチェストを開く" + disabledPrefix
+                        ChatColor.GREEN + "エンダーチェストを開く" :
+                        ChatColor.GREEN+"エンダーチェストを開く" + disabledPrefix
         );
 
         EnderChestButton.setItemMeta(ECMeta);
@@ -116,10 +111,10 @@ public class StickMenu implements CommandExecutor, TabCompleter {
 
         PHBMeta.setDisplayName(
                 conf.getBoolean("menu.buttons.player_head") ?
-                        ChatCode.GREEN+"プレイヤーの頭を入手" :
-                        ChatCode.GREEN + "プレイヤーの頭を入手" + disabledPrefix
+                        ChatColor.GREEN+"プレイヤーの頭を入手" :
+                        ChatColor.GREEN + "プレイヤーの頭を入手" + disabledPrefix
         );
-        PHBMeta.setLore(Arrays.asList(ChatCode.RESET+ChatCode.GRAY+"その代わり15レベル"+ChatCode.RED+"消費"+ChatCode.GRAY+"します。"));
+        PHBMeta.setLore(Arrays.asList(ChatColor.RESET + (ChatColor.GRAY+"その代わり15レベル") +ChatColor.RED+"消費"+ChatColor.GRAY+"します。"));
 
         PlayerHeadButton.setItemMeta(PHBMeta);
 
@@ -129,10 +124,10 @@ public class StickMenu implements CommandExecutor, TabCompleter {
 
         TMeta.setDisplayName(
                 conf.getBoolean("menu.buttons.trash_box") ?
-                        ChatCode.GREEN + "ゴミ箱を開く" :
-                        ChatCode.GREEN+"ゴミ箱を開く" + disabledPrefix
+                        ChatColor.GREEN + "ゴミ箱を開く" :
+                        ChatColor.GREEN+"ゴミ箱を開く" + disabledPrefix
         );
-        TMeta.setLore(Arrays.asList(ChatCode.RED+"ゴミ箱に入れて閉じてしまった場合戻すことは"+ChatCode.DARK_RED+ChatCode.BOLD+"不可能"+ChatCode.RED+"です。"));
+        TMeta.setLore(Arrays.asList(ChatColor.RED+"ゴミ箱に入れて閉じてしまった場合戻すことは"+ChatColor.DARK_RED+ChatColor.BOLD+"不可能"+ChatColor.RED+"です。"));
 
         TrashButton.setItemMeta(TMeta);
 
@@ -142,8 +137,8 @@ public class StickMenu implements CommandExecutor, TabCompleter {
 
         FSMeta.setDisplayName(
                 conf.getBoolean("menu.buttons.first_spawn") ?
-                        ChatCode.GREEN+"初期スポーンに戻る" :
-                        ChatCode.GREEN + "初期スポーンに戻る" + disabledPrefix
+                        ChatColor.GREEN+"初期スポーンに戻る" :
+                        ChatColor.GREEN + "初期スポーンに戻る" + disabledPrefix
         );
 
         FSButton.setItemMeta(FSMeta);

@@ -3,8 +3,7 @@ package com.nekozouneko.nekohubv2.bukkit;
 import com.nekozouneko.nekohubv2.bukkit.cmd.*;
 import com.nekozouneko.nekohubv2.bukkit.listener.*;
 
-import com.nekozouneko.nplib.chat.ChatCode;
-
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,7 +28,7 @@ public final class NekoHubv2 extends JavaPlugin {
      */
     public static NekoHubv2 instance;
 
-    public String PREFIX = ChatCode.toColorCode("&", "&7[&bNHv2&7] &r");
+    public String PREFIX = ChatColor.translateAlternateColorCodes('&', "&7[&bNHv2&7] &r");
 
     public boolean linked = false;
 
@@ -55,7 +54,7 @@ public final class NekoHubv2 extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        getLogger().info(ChatCode.GREEN+"Enabling §fNekoHub v2");
+        getLogger().info(ChatColor.GREEN+"Enabling §fNekoHub v2");
 
         // Register commands / channels
         getLogger().info("Registering commands...");
@@ -116,7 +115,7 @@ public final class NekoHubv2 extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        getLogger().info(ChatCode.RED+"Disabling §fNekoHub v2");
+        getLogger().info(ChatColor.RED+"Disabling §fNekoHub v2");
 
         // Unregister channels
         getLogger().info("Unregistering channels...");

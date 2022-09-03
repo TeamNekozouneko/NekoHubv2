@@ -1,6 +1,6 @@
 package com.nekozouneko.nekohubv2.bungee.cmd;
 
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -17,12 +17,12 @@ public class Nickname extends Command {
         String nick;
 
         if (!(sender instanceof ProxiedPlayer)) {
-            sender.sendMessage(new TextComponent(ChatCode.RED + "プレイヤーとしてのみ実行可能です。"));
+            sender.sendMessage(new TextComponent(ChatColor.RED + "プレイヤーとしてのみ実行可能です。"));
             return;
         } else if (args.length >= 1) {
-            nick = ChatCode.toColorCode("&", String.join(" ", args));
+            nick = ChatColor.translateAlternateColorCodes('&', String.join(" ", args));
         } else {
-            sender.sendMessage(new TextComponent(ChatCode.RED + "引数を定義してください"));
+            sender.sendMessage(new TextComponent(ChatColor.RED + "引数を定義してください"));
             return;
         }
 

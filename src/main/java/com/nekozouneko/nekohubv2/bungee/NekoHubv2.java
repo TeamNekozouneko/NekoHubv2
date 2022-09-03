@@ -3,14 +3,17 @@ package com.nekozouneko.nekohubv2.bungee;
 import com.nekozouneko.nekohubv2.bungee.cmd.*;
 import com.nekozouneko.nekohubv2.bungee.listener.*;
 
-import com.nekozouneko.nplib.chat.ChatCode;
 
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,7 +30,11 @@ public final class NekoHubv2 extends Plugin {
      */
     public static com.nekozouneko.nekohubv2.bungee.NekoHubv2 instance;
 
-    public String PREFIX = ChatCode.toColorCode("&", "&7[&bNHv2&7] &r");
+    public String PREFIX = ChatColor.translateAlternateColorCodes('&', "&7[&bNHv2&7] &r");
+
+    public boolean NOW_LOCKED = false;
+
+    public Map<UUID, String> ac_chat = new HashMap<>();
 
     /**
      * プラグインのインスタンスを取得します。
@@ -44,14 +51,16 @@ public final class NekoHubv2 extends Plugin {
 
     @Override
     public void onEnable() {
+        NOW_LOCKED = false;
 
-        getLogger().info(ChatCode.GREEN+"Enabling §fNekoHub v2");
+        getLogger().info(ChatColor.GREEN+"Enabling §fNekoHub v2");
 
         getLogger().info("Registering commands...");
 
         getProxy().getPluginManager().registerCommand(this, new Hub("hub", "lobby"));
         getProxy().getPluginManager().registerCommand(this, new Root("bnekohubv2", "bnhv2"));
         getProxy().getPluginManager().registerCommand(this, new Nickname());
+        getProxy().getPluginManager().registerCommand(this, new LockProxy());
 
         getLogger().info("Registering listeners...");
         getProxy().getPluginManager().registerListener(this, new PluginMessageListener());
@@ -59,6 +68,7 @@ public final class NekoHubv2 extends Plugin {
         getProxy().getPluginManager().registerListener(this, new ServerSwitch());
         getProxy().getPluginManager().registerListener(this, new Chat());
         getProxy().getPluginManager().registerListener(this, new PlayerDisconnect());
+        getProxy().getPluginManager().registerListener(this, new CommandLog());
 
         getLogger().info("Registering channels...");
         getProxy().registerChannel("nhv2:move");
@@ -115,7 +125,8 @@ public final class NekoHubv2 extends Plugin {
 
     @Override
     public void onDisable() {
-        getLogger().info(ChatCode.RED+"Disabling §fNekoHub v2");
+        NOW_LOCKED = false;
+        getLogger().info(ChatColor.RED+"Disabling §fNekoHub v2");
 
         getLogger().info("Unregistering commands...");
         getProxy().getPluginManager().unregisterCommands(this);

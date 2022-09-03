@@ -1,7 +1,8 @@
 package com.nekozouneko.nekohubv2.bukkit.listener;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
+
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -71,14 +72,14 @@ public class PluginMessageListener implements org.bukkit.plugin.messaging.Plugin
             ItemStack serverClickable = new ItemStack(Material.CHEST, 1);
             ItemMeta SCMeta = serverClickable.getItemMeta();
 
-            SCMeta.setDisplayName(ChatCode.GREEN+server);
+            SCMeta.setDisplayName(ChatColor.GREEN+server);
 
 
             List<String> lore = new ArrayList<>();
-            lore.add(ChatCode.YELLOW       +"クリックして参加!");
-            lore.add(ChatCode.STRIKETHROUGH+"--------------------");
+            lore.add(ChatColor.YELLOW       +"クリックして参加!");
+            lore.add(ChatColor.STRIKETHROUGH+"--------------------");
             for (String lores : serversMap.get(server).split("\n")) {
-                lore.add(ChatCode.AQUA + lores);
+                lore.add(ChatColor.AQUA + lores);
             }
 
             SCMeta.setLore(lore);

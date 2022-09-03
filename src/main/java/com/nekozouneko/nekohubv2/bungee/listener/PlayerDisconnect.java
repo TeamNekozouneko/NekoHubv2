@@ -1,7 +1,8 @@
 package com.nekozouneko.nekohubv2.bungee.listener;
 
 import com.nekozouneko.nekohubv2.bungee.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
+
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -13,7 +14,9 @@ public class PlayerDisconnect implements Listener {
 
     @EventHandler
     public void onPlayerDisconnect(PlayerDisconnectEvent e) {
-        instance.getProxy().broadcast(new TextComponent(ChatCode.GRAY+e.getPlayer().getName()+"が退出しました"));
+        if (instance.NOW_LOCKED) return;
+
+        instance.getProxy().broadcast(new TextComponent(ChatColor.GRAY+e.getPlayer().getName()+"が退出しました"));
     }
 
 }

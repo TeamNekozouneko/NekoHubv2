@@ -1,7 +1,7 @@
 package com.nekozouneko.nekohubv2.bungee.cmd;
 
 import com.nekozouneko.nekohubv2.bungee.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ListenerInfo;
@@ -23,11 +23,11 @@ public class Hub extends Command {
         ProxiedPlayer player = (ProxiedPlayer) sender;
 
         if (ConnectableServ == null) {
-            sender.sendMessage(new TextComponent(ChatCode.RED+"ロビーサーバーがオフラインの可能性があります。"));
+            sender.sendMessage(new TextComponent(ChatColor.RED+"ロビーサーバーがオフラインの可能性があります。"));
             return;
         }
         if (player == null) {
-            sender.sendMessage(new TextComponent(ChatCode.RED+"プレイヤーとしてのみ実行可能です。"));
+            sender.sendMessage(new TextComponent(ChatColor.RED+"プレイヤーとしてのみ実行可能です。"));
         }
 
         player.connect(ConnectableServ);

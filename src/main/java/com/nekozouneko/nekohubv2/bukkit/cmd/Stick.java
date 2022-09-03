@@ -1,6 +1,6 @@
 package com.nekozouneko.nekohubv2.bukkit.cmd;
 
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -20,7 +20,7 @@ public class Stick implements CommandExecutor, TabCompleter {
         try {
             player = (Player) sender;
         } catch (ClassCastException e) {
-            sender.sendMessage(ChatCode.RED+"プレイヤーのみ実行できます。");
+            sender.sendMessage(ChatColor.RED+"プレイヤーのみ実行できます。");
             return true;
         }
 
@@ -40,7 +40,7 @@ public class Stick implements CommandExecutor, TabCompleter {
             player.getInventory().addItem(stick);
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 1f, 1f);
         } else {
-            player.sendMessage(ChatCode.RED + "あなたのインベントリに棒が見つかったため取得はできません。");
+            player.sendMessage(ChatColor.RED + "あなたのインベントリに棒が見つかったため取得はできません。");
         }
         return true;
     }

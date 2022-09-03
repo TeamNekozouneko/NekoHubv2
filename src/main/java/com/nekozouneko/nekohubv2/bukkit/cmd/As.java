@@ -1,11 +1,12 @@
 package com.nekozouneko.nekohubv2.bukkit.cmd;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.profile.PlayerProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,14 @@ public class As implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatCode.RED + "プレイヤーまたはテキスト/コマンドを入力してください。");
+            sender.sendMessage(ChatColor.RED + "プレイヤーまたはテキスト/コマンドを入力してください。");
 
             return true;
         }
 
         Player player = Bukkit.getPlayer(args[0]);
+
+        
 
         String content = "";
         int i = 1;

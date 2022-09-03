@@ -1,7 +1,7 @@
 package com.nekozouneko.nekohubv2.bukkit.cmd;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,6 +28,6 @@ public class Rule implements CommandExecutor, TabCompleter {
     }
 
     public static String getRule() {
-        return ChatCode.toColorCode("&", instance.getConfig().getString("rule"));
+        return ChatColor.translateAlternateColorCodes('&', instance.getConfig().getString("rule"));
     }
 }

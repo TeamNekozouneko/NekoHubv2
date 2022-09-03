@@ -1,6 +1,7 @@
 package com.nekozouneko.nekohubv2.bukkit.cmd;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
@@ -9,8 +10,6 @@ import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.nekozouneko.nplib.chat.ChatCode;
 
 public class Move implements CommandExecutor, TabCompleter {
 
@@ -25,12 +24,12 @@ public class Move implements CommandExecutor, TabCompleter {
             try {
                 player = (Player) sender;
             } catch (ClassCastException e) {
-                sender.sendMessage(ChatCode.RED+"プレイヤーとしてのみ実行できます。");
+                sender.sendMessage(ChatColor.RED+"プレイヤーとしてのみ実行できます。");
                 return true;
             }
         }
 
-        if (player == null) sender.sendMessage(ChatCode.RED+"そのようなプレイヤーは存在していません。");
+        if (player == null) sender.sendMessage(ChatColor.RED+"そのようなプレイヤーは存在していません。");
 
         try {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();

@@ -1,7 +1,7 @@
 package com.nekozouneko.nekohubv2.bungee.cmd;
 
 import com.nekozouneko.nekohubv2.bungee.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
@@ -52,7 +52,7 @@ public class Root extends Command implements TabExecutor {
     }
 
     void Status(CommandSender sender, String[] args) {
-        sender.sendMessage(new TextComponent(instance.PREFIX + "NekoHubv2 " + ChatCode.GRAY + "v"+instance.getDescription().getVersion() + " (B)"));
+        sender.sendMessage(new TextComponent(instance.PREFIX + "NekoHubv2 " + ChatColor.GRAY + "v"+instance.getDescription().getVersion() + " (B)"));
     }
 
     void Sync(CommandSender sender, String[] args) {
@@ -71,7 +71,7 @@ public class Root extends Command implements TabExecutor {
             out1.writeUTF(servers);
         } catch (IOException er) {
             er.printStackTrace();
-            sender.sendMessage(new TextComponent(instance.PREFIX + ChatCode.RED + "同期に失敗しました。"));
+            sender.sendMessage(new TextComponent(instance.PREFIX + ChatColor.RED + "同期に失敗しました。"));
             return;
         }
 

@@ -1,8 +1,9 @@
 package com.nekozouneko.nekohubv2.bukkit.listener;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
 
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -15,6 +16,13 @@ public class CommnadLog implements Listener {
 
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent e) {
+        String content = e.getMessage();
+        for (String arg : e.getMessage().split(" ")) {
+            if (isIp(arg)) {
+                content = content.replace(arg, "**.**.**.**");
+            }
+        }
+
         logger:for (Player p : instance.getServer().getOnlinePlayers()) {
             if (p.isOp() || p.hasPermission("nekohubv2.log.showlog")) {
                 String[] args = e.getMessage().split(" ");
@@ -24,28 +32,39 @@ public class CommnadLog implements Listener {
                         args.length >= 3
                 ) {
                     p.sendMessage(
-                            instance.PREFIX + ChatCode.GRAY + (
+                            instance.PREFIX + ChatColor.GRAY + (
                                     e.getPlayer().getDisplayName().equals(e.getPlayer().getName()) ?
-                                            e.getPlayer().getName() : e.getPlayer().getDisplayName() + ChatCode.DARK_GRAY + " (" + e.getPlayer().getName() + ")"
-                                    ) + ChatCode.GRAY +
+                                            e.getPlayer().getName() : e.getPlayer().getDisplayName() + ChatColor.DARK_GRAY + " (" + e.getPlayer().getName() + ")"
+                                    ) + ChatColor.GRAY +
 
-                            " -> " + e.getMessage() + " -┓"
+                            " -> " + content + " -┓"
                     );
                 } else {
                     for (String ic : IGNORE_LOGGING) {
-                        if (e.getMessage().startsWith(ic)) break logger;
+                        if (args[0].equalsIgnoreCase(ic)) break logger;
                     }
                     p.sendMessage(
-                            instance.PREFIX + ChatCode.GRAY + (
+                            instance.PREFIX + ChatColor.GRAY + (
                                     e.getPlayer().getDisplayName().equals(e.getPlayer().getName()) ?
-                                            e.getPlayer().getName() : e.getPlayer().getDisplayName() + ChatCode.DARK_GRAY + " (" + e.getPlayer().getName() + ")"
-                            ) + ChatCode.GRAY +
+                                            e.getPlayer().getName() : e.getPlayer().getDisplayName() + ChatColor.DARK_GRAY + " (" + e.getPlayer().getName() + ")"
+                            ) + ChatColor.GRAY +
 
-                                    " -> " + e.getMessage()
+                                    " -> " + content
                     );
                 }
             }
         }
+    }
+
+    private boolean isIp(String susIp) {
+        int t = 0;
+        if (!(susIp.split("\\.").length == 4)) return false;
+
+        for (String a : susIp.split("\\.")) {
+            if (a.length() <= 3 && a.matches(".*\\d.*")) t++;
+        }
+
+        return t == 4;
     }
 
 }

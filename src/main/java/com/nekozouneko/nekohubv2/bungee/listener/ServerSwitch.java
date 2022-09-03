@@ -1,7 +1,8 @@
 package com.nekozouneko.nekohubv2.bungee.listener;
 
 import com.nekozouneko.nekohubv2.bungee.NekoHubv2;
-import com.nekozouneko.nplib.chat.ChatCode;
+
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -19,15 +20,15 @@ public class ServerSwitch implements Listener {
     public void onServerSwitch(ServerSwitchEvent e) {
         String connected;
         if (e.getPlayer().getDisplayName().equals(e.getPlayer().getName())) {
-            connected = ChatCode.GRAY + e.getPlayer().getName();
+            connected = ChatColor.GRAY + e.getPlayer().getName();
         } else {
-            connected = ChatCode.GRAY + e.getPlayer().getName() + " ("+e.getPlayer().getDisplayName()+")";
+            connected = ChatColor.GRAY + e.getPlayer().getName() + " ("+e.getPlayer().getDisplayName()+")";
         }
 
         String moveMessage = "";
 
         moveMessage += connected;
-        moveMessage += ChatCode.GRAY+"が"+e.getPlayer().getServer().getInfo().getName()+"に移動しました";
+        moveMessage += ChatColor.GRAY+"が"+e.getPlayer().getServer().getInfo().getName()+"に移動しました";
 
         instance.getProxy().broadcast(moveMessage);
     }
