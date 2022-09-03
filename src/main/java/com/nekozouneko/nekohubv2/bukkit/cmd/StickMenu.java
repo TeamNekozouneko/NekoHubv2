@@ -141,7 +141,18 @@ public class StickMenu implements CommandExecutor, TabCompleter {
                         ChatColor.GREEN + "初期スポーンに戻る" + disabledPrefix
         );
 
-        FSButton.setItemMeta(FSMeta);
+        /* First spawn button **/
+        ItemStack SCButton = new ItemStack(Material.ENDER_PEARL);
+        ItemMeta  SCMeta = SCButton.getItemMeta();
+
+        SCMeta.setDisplayName(
+                conf.getBoolean("menu.buttons.suicide") ?
+                        ChatColor.GREEN+"自殺する" :
+                        ChatColor.GREEN + "自殺する" + disabledPrefix
+        );
+        SCMeta.setLore(Arrays.asList(ChatColor.RED + "自殺を実行します。", ChatColor.RED+(ChatColor.UNDERLINE+ "(アイテム保持はサーバーに依存)")));
+
+        SCButton.setItemMeta(FSMeta);
 
         // Line 1
         StickMenu.setItem(0, playerInfo);
@@ -153,6 +164,7 @@ public class StickMenu implements CommandExecutor, TabCompleter {
         StickMenu.setItem(13, PlayerHeadButton);
         StickMenu.setItem(16, TrashButton);
         StickMenu.setItem(14, FSButton);
+        StickMenu.setItem(15, SCButton);
 
         player.openInventory(StickMenu);
     }

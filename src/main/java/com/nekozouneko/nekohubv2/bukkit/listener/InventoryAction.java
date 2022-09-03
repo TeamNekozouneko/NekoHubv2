@@ -3,10 +3,7 @@ package com.nekozouneko.nekohubv2.bukkit.listener;
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 import net.md_5.bungee.api.ChatColor;
 import net.wesjd.anvilgui.AnvilGUI;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.Statistic;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
 import org.bukkit.event.inventory.*;
@@ -137,6 +134,14 @@ public class InventoryAction implements Listener {
                     player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1L, 0L);
 
                     player.closeInventory();
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"自殺する")) {
+                    Location loc = player.getLocation();
+                    player.setHealth(0.0);
+                    player.sendMessage("自殺を実行しました。"+ChatColor.GRAY + "実行座標: " +
+                            String.format("%.1f", loc.getX()) + ", " +
+                            String.format("%.1f", loc.getY()) + ", " +
+                            String.format("%.1f", loc.getZ())
+                    );
                 }
             }
         }
