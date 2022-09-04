@@ -6,7 +6,7 @@
 
     <groupId>com.nekozouneko</groupId>
     <artifactId>NekoHubv2</artifactId>
-    <version>1.3</version>
+    <version>1.3.2</version>
     <packaging>jar</packaging>
 
     <name>NekoHubv2</name>

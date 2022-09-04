@@ -16,7 +16,7 @@ menu:
     ender_chest: true
     player_head: true
     first_spawn: true
-
+    suicide: true
     trash_box: true
 
 # ========================= #

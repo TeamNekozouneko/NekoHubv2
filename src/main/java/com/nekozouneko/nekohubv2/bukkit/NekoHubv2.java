@@ -72,7 +72,6 @@ public final class NekoHubv2 extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
-        getServer().getPluginManager().registerEvents(new CommnadLog(), this);
 
         getLogger().info("Registering channels...");
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "nhv2:move");

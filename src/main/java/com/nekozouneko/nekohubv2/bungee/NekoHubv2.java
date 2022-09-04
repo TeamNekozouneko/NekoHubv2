@@ -68,7 +68,6 @@ public final class NekoHubv2 extends Plugin {
         getProxy().getPluginManager().registerListener(this, new ServerSwitch());
         getProxy().getPluginManager().registerListener(this, new Chat());
         getProxy().getPluginManager().registerListener(this, new PlayerDisconnect());
-        getProxy().getPluginManager().registerListener(this, new CommandLog());
 
         getLogger().info("Registering channels...");
         getProxy().registerChannel("nhv2:move");

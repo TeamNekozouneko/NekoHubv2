@@ -9,6 +9,8 @@ import org.bukkit.event.*;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -17,9 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.nekozouneko.nekohubv2.bukkit.NekoHubv2.getInstance;
+
 public class InventoryAction implements Listener {
 
-    private NekoHubv2 instance = NekoHubv2.getInstance();
+    private NekoHubv2 instance = getInstance();
 
     @EventHandler(ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent e) {
@@ -103,7 +107,8 @@ public class InventoryAction implements Listener {
 
                         builder.itemLeft(new ItemStack(Material.PAPER));
                         builder.plugin(instance);
-                        builder.text("プレイヤー名を入力してください");
+                        builder.title("プレイヤー名を入力...");
+                        builder.text("(例: nekozouneko / 例2: uuid:[UUID])");
 
                         builder.onComplete((player1, text) -> {
                             ItemStack player_head = new ItemStack(Material.PLAYER_HEAD, 16);
@@ -135,13 +140,41 @@ public class InventoryAction implements Listener {
 
                     player.closeInventory();
                 } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"自殺する")) {
-                    Location loc = player.getLocation();
-                    player.setHealth(0.0);
-                    player.sendMessage("自殺を実行しました。"+ChatColor.GRAY + "実行座標: " +
-                            String.format("%.1f", loc.getX()) + ", " +
-                            String.format("%.1f", loc.getY()) + ", " +
-                            String.format("%.1f", loc.getZ())
-                    );
+                    player.sendMessage(getInstance().PREFIX + "五秒後に自動的に自殺を実行します。 (動くことでキャンセル)");
+                    new BukkitRunnable() {
+                        Location loc = player.getLocation();
+                        long x = (long) loc.getX();
+                        long y = (long) loc.getY();
+                        long z = (long) loc.getZ();
+                        int i = 0;
+
+                        @Override
+                        public void run() {
+                            Location loc0 = player.getLocation();
+                            long x1 = (long) loc0.getX();
+                            long y1 = (long) loc0.getY();
+                            long z1 = (long) loc0.getZ();
+
+                            if (x != x1 || y != y1 || z != z1) cancelAction();
+
+                            if (i == 5 && !isCancelled()) {
+                                player.setHealth(0.0);
+                                player.sendMessage(getInstance().PREFIX + "自殺を実行しました。" + ChatColor.GRAY + "実行座標: " +
+                                        String.format("%.1f", loc.getX()) + ", " +
+                                        String.format("%.1f", loc.getY()) + ", " +
+                                        String.format("%.1f", loc.getZ())
+                                );
+                                this.cancel();
+                            }
+
+                            i++;
+                        }
+
+                        public void cancelAction() {
+                            player.sendMessage(getInstance().PREFIX + "自殺をキャンセルしました。");
+                            this.cancel();
+                        }
+                    }.runTaskTimer(getInstance(), 20, 20);
                 }
             }
         }
