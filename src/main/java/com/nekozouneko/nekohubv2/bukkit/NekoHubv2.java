@@ -3,12 +3,17 @@ package com.nekozouneko.nekohubv2.bukkit;
 import com.nekozouneko.nekohubv2.bukkit.cmd.*;
 import com.nekozouneko.nekohubv2.bukkit.listener.*;
 
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -27,14 +32,11 @@ public final class NekoHubv2 extends JavaPlugin {
      * @see org.bukkit.plugin.java.JavaPlugin
      */
     public static NekoHubv2 instance;
-
     public String PREFIX = ChatColor.translateAlternateColorCodes('&', "&7[&bNHv2&7] &r");
-
     public boolean linked = false;
-
     public String defaultWorld = "world";
-
     public List<String> servers = new ArrayList<>();
+    public static LuckPerms luckPerms = null;
 
     /**
      * プラグインのインスタンスを取得します。
@@ -66,6 +68,9 @@ public final class NekoHubv2 extends JavaPlugin {
         getCommand("rule").setExecutor(new Rule());
         getCommand("nekohubv2").setExecutor(new Root());
         getCommand("as").setExecutor(new As());
+        if (setupLuckPerms()) {
+            getCommand("prefix").setExecutor(new Prefix());
+        }
 
         getLogger().info("Registering listeners...");
         getServer().getPluginManager().registerEvents(new InventoryAction(), this);
@@ -96,6 +101,7 @@ public final class NekoHubv2 extends JavaPlugin {
         getConfig().addDefault("menu.buttons.ender_chest", true);
         getConfig().addDefault("menu.buttons.player_head", true);
         getConfig().addDefault("menu.buttons.first_spawn", true);
+        getConfig().addDefault("menu.buttons.suicide", true);
 
         getConfig().addDefault("menu.buttons.trash_box", true);
 
@@ -103,10 +109,20 @@ public final class NekoHubv2 extends JavaPlugin {
 
         try {
             Properties p = new Properties();
-            p.load(new FileInputStream("server.properties"));
+            p.load(Files.newInputStream(Paths.get("server.properties")));
 
             defaultWorld = p.getProperty("level-name", "world");
         } catch (IOException ignored) {}
+
+    }
+
+    private boolean setupLuckPerms() {
+        if (getServer().getPluginManager().isPluginEnabled("LuckPerms")) {
+            luckPerms = LuckPermsProvider.get();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -121,4 +137,5 @@ public final class NekoHubv2 extends JavaPlugin {
         Bukkit.getMessenger().unregisterIncomingPluginChannel(this);
         Bukkit.getMessenger().unregisterOutgoingPluginChannel(this);
     }
+
 }
