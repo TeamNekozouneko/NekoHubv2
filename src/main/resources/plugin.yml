@@ -5,6 +5,7 @@ api-version: 1.16
 authors: ["Taitaitatata"]
 description: NekoHub v2
 website: "https://nekozouneko.ddns.net"
+softdepend: ["LuckPerms"]
 
 commands:
   move:
@@ -48,6 +49,11 @@ commands:
     usage: |
       /<command> <text>
       /<command> <cmd> [<args>]
+  prefix:
+    description: "プレフィックスをセットします。"
+    permission: "NekoHubv2.cmd.prefix"
+    usage: |
+      /<command> [<target> <prefix>]
 
 permissions:
   NekoHubv2:
@@ -66,14 +72,7 @@ permissions:
       - NekoHubv2.cmd.rule
       - NekoHubv2.cmd.nekohubv2
       - NekoHubv2.cmd.as
-
-  NekoHubv2.log:
-    default: op
-
-    children:
-      - NekoHubv2.log.showlog
-      - NekoHubv2.log.noshowlog
-      - NekoHubv2.log.donotlog
+      - NekoHubv2.cmd.prefix
 
   # ============================== #
   # Command perms                  #
@@ -102,14 +101,5 @@ permissions:
   NekoHubv2.cmd.as:
     default: op
 
-  # ============================== #
-  # Logging perms                  #
-  # ============================== #
-  NekoHubv2.log.showlog:
+  NekoHubv2.cmd.prefix:
     default: op
-
-  NekoHubv2.log.noshowlog:
-    default: false
-
-  NekoHubv2.log.donotlog:
-    default: false
