@@ -55,7 +55,7 @@ public class InventoryAction implements Listener {
 
                     List<String> piLore = new ArrayList<>();
                     try {
-                        double PlayedHours = (player.getStatistic(Statistic.PLAY_ONE_MINUTE) * 20.0 ) / 60.0 / 60.0;
+                        double PlayedHours = (player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20.0 ) / 60.0 / 60.0;
 
                         piLore.add(ChatColor.GRAY + String.format("%.1f", PlayedHours) + "時間プレイ済み");
                     } catch (Exception ignored) {}
