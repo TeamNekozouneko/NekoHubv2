@@ -35,7 +35,11 @@ public class Prefix implements CommandExecutor, TabCompleter {
         String usingPrefix = user.getCachedData().getMetaData().getPrefix();
 
         if (args.length == 1) {
-            sender.sendMessage(getInstance().PREFIX + "現在のプレフィックスは「" + user.getCachedData().getMetaData().getPrefix() + "§r」です");
+            if (usingPrefix != null) {
+                sender.sendMessage(getInstance().PREFIX + "現在のプレフィックスは「" + user.getCachedData().getMetaData().getPrefix() + "§r」です");
+            } else {
+                sender.sendMessage(getInstance().PREFIX + ChatColor.RED + "プレフィックスは登録されていません");
+            }
             return true;
         }
         if (args.length == 0) {
@@ -100,6 +104,8 @@ public class Prefix implements CommandExecutor, TabCompleter {
                     tab.add(ply.getName());
                 }
             }
+
+
 
             return tab;
         }
