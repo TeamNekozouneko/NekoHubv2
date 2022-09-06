@@ -85,6 +85,7 @@ public final class NekoHubv2 extends JavaPlugin {
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "nhv2:sync", new PluginMessageListener());
 
         getLogger().info("Loading configurations...");
+        getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
         getConfig().addDefault("rule", "&a&lマイクラ鯖共通ルール\n" +
