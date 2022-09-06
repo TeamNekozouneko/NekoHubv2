@@ -2,6 +2,7 @@ package com.nekozouneko.nekohubv2.bukkit.cmd;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 import net.luckperms.api.LuckPerms;
+import net.luckperms.api.model.data.DataMutateResult;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.types.PrefixNode;
 import net.md_5.bungee.api.ChatColor;
@@ -31,6 +32,7 @@ public class Prefix implements CommandExecutor, TabCompleter {
         }
         Player player = (Player) sender;
         User user = lp.getPlayerAdapter(Player.class).getUser(player);
+        String usingPrefix = user.getCachedData().getMetaData().getPrefix();
 
         if (args.length == 1) {
             sender.sendMessage(getInstance().PREFIX + "現在のプレフィックスは「" + user.getCachedData().getMetaData().getPrefix() + "§r」です");
@@ -41,15 +43,48 @@ public class Prefix implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        String arg = String.join(" ", args).substring(args[0].length()+1);
+        if (!(args[1].equalsIgnoreCase("@none"))) {
+            String prefix;
 
-        Matcher m = Pattern.compile("\"(.*?)\"").matcher(arg);
-        m.find(0);
+            if (args[1].startsWith("\"")) {
+                String arg = String.join(" ", args).substring(args[0].length() + 1);
 
-        user.data().add(PrefixNode.builder(ChatColor.translateAlternateColorCodes('&', m.group(1)), 9).build());
-        lp.getUserManager().saveUser(user);
+                Matcher m = Pattern.compile("\"(.*?)\"").matcher(arg);
+                m.find(0);
 
-        sender.sendMessage(getInstance().PREFIX + "プレフィックスを「" + ChatColor.translateAlternateColorCodes('&', m.group(1)) + "§r」にセットしました");
+                prefix = m.group(1);
+            } else prefix = args[1];
+
+            if (usingPrefix != null) {
+                user.data().remove(
+                        PrefixNode.builder(user.getCachedData().getMetaData().getPrefix(), 9).build()
+                );
+            }
+            user.data().add(
+                    PrefixNode.builder(
+                            ChatColor.translateAlternateColorCodes('&', prefix),
+                            9).build()
+            );
+            lp.getUserManager().saveUser(user);
+
+            sender.sendMessage(getInstance().PREFIX + "プレフィックスを「" + ChatColor.translateAlternateColorCodes('&', prefix) + "§r」にセットしました");
+        } else {
+            if (usingPrefix != null) {
+                DataMutateResult result = user.data().remove(
+                        PrefixNode.builder(user.getCachedData().getMetaData().getPrefix(), 9).build()
+                );
+
+                if (result.wasSuccessful()) {
+                    sender.sendMessage(getInstance().PREFIX + "プレフィックスを削除しました。");
+                } else {
+                    sender.sendMessage(getInstance().PREFIX + ChatColor.RED + "プレフィックスは存在していますが、本プラグインでは登録されていないため削除できませんでした。");
+                }
+            } else {
+                sender.sendMessage(getInstance().PREFIX + ChatColor.RED + "プレフィックスは登録されていません。");
+            }
+
+
+        }
 
         return true;
     }
