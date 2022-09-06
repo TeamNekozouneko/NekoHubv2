@@ -46,9 +46,7 @@ commands:
     aliases: ["sudo"]
     description: "代行実行"
     permission: NekoHubv2.cmd.as
-    usage: |
-      /<command> <text>
-      /<command> <cmd> [<args>]
+    usage: "/<command> <target> <cmd>"
   prefix:
     description: "プレフィックスをセットします。"
     permission: "NekoHubv2.cmd.prefix"
