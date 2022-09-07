@@ -49,6 +49,7 @@ public class Root implements CommandExecutor, TabCompleter {
     void Status(CommandSender sender, Command command, String label, String[] args) {
         sender.sendMessage(instance.PREFIX + "NekoHubv2 " + ChatColor.GRAY + "v"+instance.getDescription().getVersion() + " (S)");
         sender.sendMessage(instance.PREFIX + (instance.linked ? "プロキシと同期済み / " + instance.servers.size() + "個のサーバーが登録済み" : "プロキシと同期していません " + ChatColor.GRAY + "(鯖選択画面使用不可)"));
+        sender.sendMessage(instance.PREFIX + (NekoHubv2.luckPerms != null ? "LuckPermsと連携中" : "LuckPermsと未連携 (/prefixは使用できません)"));
     }
 
     void Reload(CommandSender sender, Command command, String label, String[] args) {

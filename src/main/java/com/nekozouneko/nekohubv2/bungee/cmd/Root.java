@@ -53,6 +53,7 @@ public class Root extends Command implements TabExecutor {
 
     void Status(CommandSender sender, String[] args) {
         sender.sendMessage(new TextComponent(instance.PREFIX + "NekoHubv2 " + ChatColor.GRAY + "v"+instance.getDescription().getVersion() + " (B)"));
+        sender.sendMessage(new TextComponent(instance.PREFIX + (NekoHubv2.NOW_LOCKED ? "新規アクセス禁止中" + ChatColor.GRAY + "(/lock-proxy)" : "新規アクセス可能")));
     }
 
     void Sync(CommandSender sender, String[] args) {
