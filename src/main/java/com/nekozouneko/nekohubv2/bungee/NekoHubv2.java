@@ -32,7 +32,7 @@ public final class NekoHubv2 extends Plugin {
 
     public String PREFIX = ChatColor.translateAlternateColorCodes('&', "&7[&bNHv2&7] &r");
 
-    public boolean NOW_LOCKED = false;
+    public static boolean NOW_LOCKED = false;
 
     public Map<UUID, String> ac_chat = new HashMap<>();
 
