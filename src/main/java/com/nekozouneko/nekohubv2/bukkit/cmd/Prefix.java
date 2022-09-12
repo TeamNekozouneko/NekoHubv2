@@ -19,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.nekozouneko.nekohubv2.bukkit.NekoHubv2.getInstance;
+import static com.nekozouneko.nekohubv2.bukkit.NekoHubv2.instance;
 
 public class Prefix implements CommandExecutor, TabCompleter {
 
@@ -26,11 +27,9 @@ public class Prefix implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(getInstance().PREFIX);
-            return true;
-        }
-        Player player = (Player) sender;
+        Player player = instance.getServer().getPlayer(args[0]);
+        if (player == null) sender.sendMessage(instance.PREFIX + "§cそのようなプレイヤーはオンラインではありません。");
+
         User user = lp.getPlayerAdapter(Player.class).getUser(player);
         String usingPrefix = user.getCachedData().getMetaData().getPrefix();
 
