@@ -46,6 +46,9 @@ public class PlayerInteract implements Listener {
 
                 try {
                     out.writeUTF(player.getName());
+                    if (player.isSneaking()) {
+                        out.writeBoolean(true);
+                    } else out.writeBoolean(false);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

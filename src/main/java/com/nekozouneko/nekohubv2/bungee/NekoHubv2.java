@@ -7,6 +7,7 @@ import com.nekozouneko.nekohubv2.bungee.listener.*;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.plugin.Plugin;
+import org.geysermc.floodgate.api.FloodgateApi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -29,6 +30,7 @@ public final class NekoHubv2 extends Plugin {
      * @see com.nekozouneko.nekohubv2.bungee.NekoHubv2
      */
     public static com.nekozouneko.nekohubv2.bungee.NekoHubv2 instance;
+    public static FloodgateApi floodgateApi = null;
 
     public String PREFIX = ChatColor.translateAlternateColorCodes('&', "&7[&bNHv2&7] &r");
 
@@ -43,6 +45,9 @@ public final class NekoHubv2 extends Plugin {
     public static NekoHubv2 getInstance() {
         return instance;
     }
+    public static FloodgateApi getFInstance() {
+        return floodgateApi;
+    }
 
     @Override
     public void onLoad() {
@@ -54,6 +59,12 @@ public final class NekoHubv2 extends Plugin {
         NOW_LOCKED = false;
 
         getLogger().info(ChatColor.GREEN+"Enabling §fNekoHub v2");
+
+        getLogger().info("Checking depends...");
+        Plugin fg = getProxy().getPluginManager().getPlugin("floodgate");
+        if (fg != null) {
+            floodgateApi = FloodgateApi.getInstance();
+        }
 
         getLogger().info("Registering commands...");
 
@@ -74,6 +85,7 @@ public final class NekoHubv2 extends Plugin {
         getProxy().registerChannel("nhv2:requestserverpanel");
         getProxy().registerChannel("nhv2:openseverpanel");
         getProxy().registerChannel("nhv2:sync");
+
 
         getLogger().info("Server data is being sent...");
 

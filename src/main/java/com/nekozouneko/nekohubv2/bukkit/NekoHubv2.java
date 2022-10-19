@@ -68,6 +68,7 @@ public final class NekoHubv2 extends JavaPlugin {
         getCommand("rule").setExecutor(new Rule());
         getCommand("nekohubv2").setExecutor(new Root());
         getCommand("as").setExecutor(new As());
+        getCommand("spawn").setExecutor(new Spawn());
         if (setupLuckPerms()) {
             getCommand("prefix").setExecutor(new Prefix());
         }

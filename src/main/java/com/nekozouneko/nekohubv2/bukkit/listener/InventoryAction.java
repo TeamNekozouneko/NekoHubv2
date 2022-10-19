@@ -40,7 +40,7 @@ public class InventoryAction implements Listener {
                     try {
                         out.writeUTF(player.getName());
                         out.writeUTF(item.getItemMeta().getDisplayName().replace(ChatColor.GREEN+"", ""));
-
+                        player.closeInventory();
                         player.sendPluginMessage(instance, "nhv2:move", bytes.toByteArray());
                     } catch (Exception er) {
                         er.printStackTrace();
@@ -71,26 +71,29 @@ public class InventoryAction implements Listener {
                     playerInfo.setItemMeta(piSkull);
 
                     e.getInventory().setItem(0, playerInfo);
-                } else if (item.getItemMeta().getDisplayName().endsWith(ChatColor.GRAY + "[" + ChatColor.RED + "無効化されています" + ChatColor.GRAY + "]")) {
+                } else if (item.getItemMeta().getDisplayName().endsWith(ChatColor.GRAY + "[" + ChatColor.RED + "無効です" + ChatColor.GRAY + "]")) {
                     player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1f, 0f);
                     player.sendMessage(ChatColor.RED + "この機能は無効化されています。");
                 } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"サーバー選択画面を開く")) {
+                    player.closeInventory();
                     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                     DataOutputStream out = new DataOutputStream(bytes);
 
                     try {
                         out.writeUTF(player.getName());
+                        out.writeBoolean(false);
                     } catch (IOException er) {
                         er.printStackTrace();
                     }
 
-                    player.sendPluginMessage(instance, "nhv2:requestserverpanel", bytes.toByteArray());
-                    player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_AMBIENT, 1f, 2f);
+                    Bukkit.getScheduler().runTaskLater(instance, () -> {
+                        player.sendPluginMessage(instance, "nhv2:requestserverpanel", bytes.toByteArray());
+                        player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_AMBIENT, 1f, 2f);
+                    }, 10L);
                 } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GREEN+"最後に設定したスポーン地点に戻る")) {
                     if (player.getBedSpawnLocation() != null) {
                         player.playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 0.25f, 2f);
 
-                        player.closeInventory();
                         player.teleport(player.getBedSpawnLocation());
                     } else {
                         player.sendMessage(ChatColor.RED+"あなたはスポーン地点を設定してないため、テレポートできませんでした。");

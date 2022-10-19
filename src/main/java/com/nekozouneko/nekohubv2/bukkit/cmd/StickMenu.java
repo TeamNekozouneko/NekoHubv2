@@ -41,7 +41,7 @@ public class StickMenu implements CommandExecutor, TabCompleter {
      * @param player 開くプレイヤー
      */
     public static void initStickMenu(Player player) {
-        String disabledPrefix = ChatColor.GRAY + "[" + ChatColor.RED + "無効化されています" + ChatColor.GRAY + "]";
+        String disabledPrefix = ChatColor.GRAY + "[" + ChatColor.RED + "無効です" + ChatColor.GRAY + "]";
         FileConfiguration conf = instance.getConfig();
         Inventory StickMenu = Bukkit.createInventory(null, 3*9, "NekoHub: メニュー");
 
