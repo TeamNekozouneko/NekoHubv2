@@ -5,9 +5,8 @@ import com.nekozouneko.nekohubv2.bungee.listener.*;
 
 
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.plugin.Plugin;
-import org.geysermc.floodgate.api.FloodgateApi;
+import org.geysermc.geyser.api.GeyserApi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -30,7 +29,7 @@ public final class NekoHubv2 extends Plugin {
      * @see com.nekozouneko.nekohubv2.bungee.NekoHubv2
      */
     public static com.nekozouneko.nekohubv2.bungee.NekoHubv2 instance;
-    public static FloodgateApi floodgateApi = null;
+    public static GeyserApi geyserApi = null;
 
     public String PREFIX = ChatColor.translateAlternateColorCodes('&', "&7[&bNHv2&7] &r");
 
@@ -45,8 +44,8 @@ public final class NekoHubv2 extends Plugin {
     public static NekoHubv2 getInstance() {
         return instance;
     }
-    public static FloodgateApi getFInstance() {
-        return floodgateApi;
+    public static GeyserApi getGInstance() {
+        return geyserApi;
     }
 
     @Override
@@ -63,7 +62,7 @@ public final class NekoHubv2 extends Plugin {
         getLogger().info("Checking depends...");
         Plugin fg = getProxy().getPluginManager().getPlugin("floodgate");
         if (fg != null) {
-            floodgateApi = FloodgateApi.getInstance();
+            geyserApi = GeyserApi.api();
         }
 
         getLogger().info("Registering commands...");

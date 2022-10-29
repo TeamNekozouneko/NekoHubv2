@@ -1,8 +1,6 @@
 package com.nekozouneko.nekohubv2.bungee.listener;
 
 import com.nekozouneko.nekohubv2.bungee.NekoHubv2;
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
@@ -12,22 +10,21 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.geysermc.cumulus.form.SimpleForm;
 import org.geysermc.cumulus.util.FormImage;
-import org.geysermc.floodgate.api.FloodgateApi;
-import org.geysermc.floodgate.api.player.FloodgatePlayer;
+import org.geysermc.geyser.api.GeyserApi;
+import org.geysermc.geyser.api.connection.GeyserConnection;
 
 import java.io.*;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class PluginMessageListener implements Listener {
 
     private NekoHubv2 instance = NekoHubv2.getInstance();
-    private FloodgateApi fa = NekoHubv2.getFInstance();
+    private GeyserApi ga = NekoHubv2.getGInstance();
 
     @EventHandler
     public void onPluginMessage(PluginMessageEvent e) {
         if (e.isCancelled() || !e.getTag().startsWith("nhv2:")) return;
 
+        // @Deprecated
         if (e.getTag().equalsIgnoreCase("nhv2:move")) {
             DataInputStream in = new DataInputStream(new ByteArrayInputStream(e.getData()));
 
@@ -78,16 +75,18 @@ public class PluginMessageListener implements Listener {
             }
         }
 
-        FloodgatePlayer fp;
-        if (fa != null) {fp = fa.getPlayer(player.getUniqueId());}
-        else {fp = null;}
-        if (fp != null && !forceJavaMenu && fa != null) {
+        GeyserConnection gc;
+        if (ga != null) {gc = ga.connectionByUuid(player.getUniqueId());}
+        else {gc = null;}
+        if (gc != null && !forceJavaMenu && ga != null) {
             SimpleForm.Builder sf = SimpleForm.builder()
                     .title("サーバーを選択...")
                     .content("入りたいサーバーを押すと\nそのサーバーに移動します");
 
             for (String k : instance.getProxy().getServers().keySet()) {
-                sf.button(k);
+                if (instance.getProxy().getServerInfo(k).canAccess(player)) {
+                    sf.button(k);
+                }
             }
 
             sf.button("旧サーバー選択を使う", FormImage.Type.URL, "https://www.nekozouneko.com/assets/arrow-u-left-bottom-bold.png");
@@ -102,10 +101,12 @@ public class PluginMessageListener implements Listener {
                }
             });
             try {
-                fa.sendForm(player.getUniqueId(), sf.build());
+                ga.sendForm(player.getUniqueId(), sf.build());
             } catch (LinkageError le) {
                 instance.getLogger().severe("Linkage Error is called");
                 ServerSelectorPanelOpenRequestFromBungee(player, true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } else {
             out.writeUTF(servers);
