@@ -2,6 +2,7 @@ package com.nekozouneko.nekohubv2.bukkit.cmd;
 
 import com.nekozouneko.nekohubv2.bukkit.NekoHubv2;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.config.ServerInfo;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
@@ -35,10 +36,10 @@ public class Move implements CommandExecutor, TabCompleter {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             DataOutputStream out = new DataOutputStream(bytes);
 
-            out.writeUTF(player.getName()); // white player name
+            out.writeUTF("Connect"); //
             out.writeUTF(args[0]); // write move server name
 
-            sender.getServer().sendPluginMessage(instance, "nhv2:move", bytes.toByteArray());
+            player.sendPluginMessage(instance, "BungeeCord", bytes.toByteArray());
         } catch (Exception e) {
             e.printStackTrace();
         }

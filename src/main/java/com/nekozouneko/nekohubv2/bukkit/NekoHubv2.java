@@ -80,7 +80,8 @@ public final class NekoHubv2 extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerQuit(), this);
 
         getLogger().info("Registering channels...");
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "nhv2:move");
+        // Bukkit.getMessenger().registerOutgoingPluginChannel(this, "nhv2:move");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "nhv2:requestserverpanel");
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "nhv2:openseverpanel", new PluginMessageListener());
         Bukkit.getMessenger().registerIncomingPluginChannel(this, "nhv2:sync", new PluginMessageListener());
