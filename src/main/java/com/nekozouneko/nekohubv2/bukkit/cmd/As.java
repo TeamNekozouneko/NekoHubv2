@@ -14,7 +14,8 @@ import java.util.Locale;
 
 public class As implements CommandExecutor, TabCompleter {
 
-    NekoHubv2 instance = NekoHubv2.getInstance();
+    private NekoHubv2 instance = NekoHubv2.getInstance();
+    
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
