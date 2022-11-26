@@ -6,7 +6,7 @@
 
     <groupId>com.nekozouneko</groupId>
     <artifactId>NekoHubv2</artifactId>
-    <version>1.6</version>
+    <version>1.7rc3</version>
     <packaging>jar</packaging>
 
     <name>NekoHubv2</name>
@@ -84,6 +84,10 @@
             <id>opencollab-snapshot-repo</id>
             <url>https://repo.opencollab.dev/main/</url>
         </repository>
+        <repository>
+            <id>nekozo-repo</id>
+            <url>https://repos.nekozouneko.net/repository/nekozorepo/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -115,6 +119,11 @@
             <artifactId>api</artifactId>
             <version>2.1.0-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.nekozouneko</groupId>
+            <artifactId>nutilsxlib-common</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
