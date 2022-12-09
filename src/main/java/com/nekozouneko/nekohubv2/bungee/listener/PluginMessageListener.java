@@ -1,6 +1,7 @@
 package com.nekozouneko.nekohubv2.bungee.listener;
 
 import com.nekozouneko.nekohubv2.bungee.NekoHubv2;
+import com.nekozouneko.nutilsxlib.chat.NChatColor;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PluginMessageEvent;
@@ -71,21 +72,21 @@ public class PluginMessageListener implements Listener {
         String servers = "";
         for ( ServerInfo val : instance.getProxy().getServers().values() ) {
             if (val.canAccess(player)) {
-                servers += val.getName() + ":" + val.getMotd().replaceAll("\\n", "\n") + ";";
+                servers += val.getName() + ":" + val.getMotd().replace("\\n", "\n") +  ":" + val.getPlayers().size() + ";";
             }
         }
 
         GeyserConnection gc;
-        if (ga != null) {gc = ga.connectionByUuid(player.getUniqueId());}
-        else {gc = null;}
+        if (ga != null) gc = ga.connectionByUuid(player.getUniqueId());
+        else gc = null;
         if (gc != null && !forceJavaMenu && ga != null) {
             SimpleForm.Builder sf = SimpleForm.builder()
-                    .title("サーバーを選択...")
-                    .content("入りたいサーバーを押すと\nそのサーバーに移動します");
+                    .title("サーバーを選択... (Select a server...)")
+                    .content("入りたいサーバーを押すと\nそのサーバーに移動します\n(Click to join)");
 
             for (String k : instance.getProxy().getServers().keySet()) {
                 if (instance.getProxy().getServerInfo(k).canAccess(player)) {
-                    sf.button(k);
+                    sf.button(k + "\n" + NChatColor.replaceAltColorCodes(instance.getProxy().getServers().get(k).getMotd()));
                 }
             }
 
@@ -97,7 +98,7 @@ public class PluginMessageListener implements Listener {
                         ServerSelectorPanelOpenRequestFromBungee(player, true);
                     } catch (IOException ignored) {}
                 } else {
-                    player.connect(instance.getProxy().getServerInfo(l));
+                    player.connect(instance.getProxy().getServerInfo(l.split("\n")[0]));
                }
             });
             try {
